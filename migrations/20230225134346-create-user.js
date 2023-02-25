@@ -10,10 +10,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       rol_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Rols",
+          key: "id"
+        }
       },
-      fecha_registro: {
-        type: Sequelize.DATE
+      date: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
