@@ -137,6 +137,28 @@ app.post("/histories", async (req,res) =>{
 
 });
 
+//Endpoints Speciality
+
+app.get("/Specialities", (req,res) =>{
+    return res.send("Your Specialities is")
+});
+
+app.post("/Specialities", async (req,res) =>{
+
+    const { name, description} = req.body;
+
+    const newSpeciality = {
+        name : name,
+       description : description
+    }
+
+    // Guardar la informacion
+    const speciality = await Speciality.create(newSpeciality)
+
+    return res.json(speciality)
+
+});
+
 
 
 
