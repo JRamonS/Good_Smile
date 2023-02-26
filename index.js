@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./db/db');
 const {Rol} = require ("./models/index");
 const {User} = require ("./models/index");
+const {Dentist} = require ("./models/index");
 const app = express();
 
 
@@ -46,6 +47,37 @@ app.post("/users", async (req,res) =>{
     return res.json(user)
 
 });
+
+app.get("/dentists", (req,res) =>{
+    return res.send("Welcome dentist")
+});
+
+app.post("/dentists", async (req,res) =>{
+
+    const { name, surname, email, address,registration_number,phone } = req.body;
+
+    const newDentist = {
+        name : name,
+        surname : surname,
+        email : email,
+        address : address,
+        registration_number : registration_number,
+        phone : phone
+    }
+
+    // Guardar la informacion
+    const dentist = await Dentist.create(newDentist)
+
+    return res.json(dentist)
+
+});
+
+app.put("/dentists/:id", async (req, res) =>{
+    const dentistId = req.params.id
+    const name = req.body.name
+    const updateDentist = await Dentist.update({name:name}, {where:{id:dentistId}})
+    return res.json(updateDentist)
+})
 
 
 
