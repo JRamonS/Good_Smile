@@ -5,6 +5,8 @@ const {User} = require ("./models/index");
 const {Dentist} = require ("./models/index");
 const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
+const {Speciality} = require ("./models/index");
+const {Appointment} = require ("./models/index");
 const app = express();
 
 
@@ -80,10 +82,19 @@ app.post("/dentists", async (req,res) =>{
 
 });
 
+
+app.get('/dentists/:id', async (req, res) => {
+    const dentistId = req.params.id;
+
+    const dentist = await Dentist.findByPk(dentistId)
+
+    return res.json(dentist);
+})
+
 app.put("/dentists/:id", async (req, res) =>{
     const dentistId = req.params.id
-    const name = req.body.name
-    const updateDentist = await Dentist.update({name:name}, {where:{id:dentistId}})
+    const { name, surname, email, address,registration_number,phone } = req.body;
+    const updateDentist = await Dentist.update({name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
     return res.json(updateDentist)
 })
 
@@ -159,6 +170,36 @@ app.post("/Specialities", async (req,res) =>{
 
 });
 
+//Endpint Appointment
+
+app.get("/Appointments", (req,res) =>{
+    return res.send("Your Appointment is")
+});
+
+app.post("/Appointments", async (req,res) =>{
+
+    const {hour,status,observations,date} = req.body;
+
+    const newAppointment = {
+        hour : hour,
+       status : status,
+       observations : observations,
+       date : date
+    }
+
+    // Guardar la informacion
+    const appointment = await Appointment.create(newAppointment)
+
+    return res.json(appointment)
+
+});
+
+app.put("/Appointments/:id", async (req, res) =>{
+    const appointmentId = req.params.id
+    const name = req.body.name
+    const updateAppointment = await Appointment.update({name:name}, {where:{id:appointmentId}})
+    return res.json(updateAppointment)
+})
 
 
 
@@ -169,3 +210,5 @@ app.post("/Specialities", async (req,res) =>{
 
 //Starting server
 app.listen(PORT, () => console.log("Server on port " + PORT));
+
+  
