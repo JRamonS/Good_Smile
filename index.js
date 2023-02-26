@@ -98,6 +98,14 @@ app.put("/dentists/:id", async (req, res) =>{
     return res.json(updateDentist)
 })
 
+// app.delete("/dentists/:id", async(req, res) => {
+//     const dentistId = req.params.id
+    
+//     const deleteDentist = await Dentist.destroy({where: { id: dentistId}})
+
+//     return res.json(deleteDentist);
+// })
+
 //Endpoints pacients
 
 app.get("/pacients", (req,res) =>{
@@ -125,6 +133,30 @@ app.post("/pacients", async (req,res) =>{
     return res.json(pacient)
 
 });
+
+app.get('/pacients/:id', async (req, res) => {
+    const pacientId = req.params.id;
+
+    const pacient = await Pacient.findByPk(pacientId)
+
+    return res.json(pacient);
+})
+
+app.put("/pacients/:id", async (req, res) =>{
+    const pacientId = req.params.id
+    const { name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+
+    const updatePacient = await Pacient.update({name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
+    return res.json(updatePacient)
+})
+
+// app.delete("/pacients/:id", async(req, res) => {
+//     const pacientId = req.params.id
+    
+//     const deletePacient = await Pacient.destroy({where: { id: pacientId}})
+
+//     return res.json(deletePacient);
+// })
 
 //Endpoints History
 
