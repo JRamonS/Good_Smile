@@ -1,4 +1,5 @@
 const express = require('express');
+const userController = require('./controllers/userController');
 const db = require('./db/db');
 const {Rol} = require ("./models/index");
 const {User} = require ("./models/index");
@@ -43,20 +44,9 @@ app.get("/users", (req,res) =>{
     return res.send("Welcome to the app")
 });
 
-app.post("/users", async (req,res) =>{
+app.post("/users", userController.createUser) 
 
-    const { date } = req.body;
 
-    const newUser = {
-        date : date
-    }
-
-    // Guardar la informacion
-    const user = await User.create(newUser)
-
-    return res.json(user)
-
-});
 
 //Endpoints dentist
 
