@@ -3,7 +3,7 @@ const express = require('express');
 const db = require('./db/db');
 const {Rol} = require ("./models/index");
 //const {User} = require ("./models/index");
-const {Dentist} = require ("./models/index");
+// const {Dentist} = require ("./models/index");
 const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
 const {Speciality} = require ("./models/index");
@@ -17,9 +17,12 @@ app.use(express.json());
 const userRoutes = require("./views/userRoutes")
 const authRoutes = require("./views/authRoutes")
 const dentistRoutes = require("./views/dentistRoutes")
+const pacientRoutes = require("./views/pacientRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
+app.use(pacientRoutes)
+
 
 
 
@@ -62,15 +65,6 @@ app.get("/dentists", (req,res) =>{
     return res.send("Welcome dentist")
 });
 
-// app.delete("/dentists/:id", async(req, res) => {
-//     const dentistId = req.params.id
-    
-//     const deleteDentist = await Dentist.destroy({where: { id: dentistId}})
-
-//     return res.json(deleteDentist);
-// })
-
-
 
 //Endpoints pacients
 
@@ -78,53 +72,8 @@ app.get("/pacients", (req,res) =>{
     return res.send("Welcome pacient")
 });
 
-app.post("/pacients", async (req,res) =>{
 
-    const { user_id, history_id, name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
-    const newPacient = {
-        user_id : user_id,
-        history_id : history_id,
-        name : name,
-        surname : surname,
-        email : email,
-        address : address,
-        phone : phone,
-        date_of_birth : date_of_birth,
-        gender : gender,
-        postcode : postcode
-    }
-
-    // Guardar la informacion
-    const pacient = await Pacient.create(newPacient)
-
-    return res.json(pacient)
-
-});
-
-app.get('/pacients/:id', async (req, res) => {
-    const pacientId = req.params.id;
-
-    const pacient = await Pacient.findByPk(pacientId)
-
-    return res.json(pacient);
-})
-
-app.put("/pacients/:id", async (req, res) =>{
-    const pacientId = req.params.id
-    const { user_id, speciality_id,name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
-
-    const updatePacient = await Pacient.update({user_id, speciality_id,name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
-    return res.json(updatePacient)
-})
-
-// app.delete("/pacients/:id", async(req, res) => {
-//     const pacientId = req.params.id
-    
-//     const deletePacient = await Pacient.destroy({where: { id: pacientId}})
-
-//     return res.json(deletePacient);
-// })
 
 //Endpoints History
 
