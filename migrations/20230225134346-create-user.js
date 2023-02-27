@@ -16,7 +16,13 @@ module.exports = {
           key: "id"
         }
       },
-      date: {
+      username: {
+        type: Sequelize.STRING
+      },
+      password: {
+        type: Sequelize.STRING
+      },
+      email: {
         type: Sequelize.STRING
       },
       createdAt: {

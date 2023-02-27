@@ -15,7 +15,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
     rol_id: DataTypes.INTEGER,
-    date: DataTypes.STRING
+    username: {
+      type : DataTypes.INTEGER,
+      unique : true
+    },
+    password : DataTypes.STRING,
+    email:{
+      type : DataTypes.INTEGER,
+      unique : true
+    } 
   }, {
     sequelize,
     modelName: 'User',

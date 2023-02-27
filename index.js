@@ -1,7 +1,8 @@
 const express = require('express');
+//const userController = require('./controllers/userController');
 const db = require('./db/db');
 const {Rol} = require ("./models/index");
-const {User} = require ("./models/index");
+//const {User} = require ("./models/index");
 const {Dentist} = require ("./models/index");
 const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
@@ -9,10 +10,16 @@ const {Speciality} = require ("./models/index");
 const {Appointment} = require ("./models/index");
 const {Treatment} = require ("./models/index");
 const {Payment} = require ("./models/index");
+
 const app = express();
-
-
 app.use(express.json());
+
+const userRoutes = require("./views/userRoutes")
+const authRoutes = require("./views/authRoutes")
+app.use(userRoutes)
+app.use(authRoutes)
+
+
 
 const PORT = 3000;
 
@@ -43,20 +50,9 @@ app.get("/users", (req,res) =>{
     return res.send("Welcome to the app")
 });
 
-app.post("/users", async (req,res) =>{
+//app.post("/users", userController.createUser) 
 
-    const { date } = req.body;
 
-    const newUser = {
-        date : date
-    }
-
-    // Guardar la informacion
-    const user = await User.create(newUser)
-
-    return res.json(user)
-
-});
 
 //Endpoints dentist
 
@@ -66,9 +62,11 @@ app.get("/dentists", (req,res) =>{
 
 app.post("/dentists", async (req,res) =>{
 
-    const { name, surname, email, address,registration_number,phone } = req.body;
+    const { user_id, speciality_id, name, surname, email, address,registration_number,phone } = req.body;
 
     const newDentist = {
+        user_id : user_id,
+        speciality_id : speciality_id,
         name : name,
         surname : surname,
         email : email,
@@ -95,8 +93,8 @@ app.get('/dentists/:id', async (req, res) => {
 
 app.put("/dentists/:id", async (req, res) =>{
     const dentistId = req.params.id
-    const { name, surname, email, address,registration_number,phone } = req.body;
-    const updateDentist = await Dentist.update({name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
+    const { user_id,speciality_id,name, surname, email, address,registration_number,phone } = req.body;
+    const updateDentist = await Dentist.update({user_id:user_id,speciality_id,name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
     return res.json(updateDentist)
 })
 
@@ -116,9 +114,11 @@ app.get("/pacients", (req,res) =>{
 
 app.post("/pacients", async (req,res) =>{
 
-    const { name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+    const { user_id, history_id, name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
     const newPacient = {
+        user_id : user_id,
+        history_id : history_id,
         name : name,
         surname : surname,
         email : email,
@@ -146,9 +146,9 @@ app.get('/pacients/:id', async (req, res) => {
 
 app.put("/pacients/:id", async (req, res) =>{
     const pacientId = req.params.id
-    const { name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+    const { user_id, speciality_id,name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
-    const updatePacient = await Pacient.update({name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
+    const updatePacient = await Pacient.update({user_id, speciality_id,name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
     return res.json(updatePacient)
 })
 
@@ -212,13 +212,16 @@ app.get("/appointments", (req,res) =>{
 
 app.post("/appointments", async (req,res) =>{
 
-    const {hour,status,observations,date} = req.body;
+    const {pacient_id,dentist_id,treatment_id,hour,status,observations,date} = req.body;
 
     const newAppointment = {
+        pacient_id : pacient_id,
+        dentist_id: dentist_id,
+        treatment_id : treatment_id,
         hour : hour,
-       status : status,
-       observations : observations,
-       date : date
+        status : status,
+        observations : observations,
+        date : date
     }
 
     // Guardar la informacion
@@ -290,9 +293,10 @@ app.get("/payments", (req,res) =>{
 
 app.post("/payments", async (req,res) =>{
 
-    const {notes,date,amount,payment_method} = req.body;
+    const {treatment_id,notes,date,amount,payment_method} = req.body;
 
     const newPayment = {
+        treatment_id,
         notes : notes,
         date : date,
         amount: amount,
