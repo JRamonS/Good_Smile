@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Payment.init({
+    treatment_id : DataTypes.INTEGER,
     note: DataTypes.TEXT,
     date: DataTypes.STRING,
     amount: DataTypes.FLOAT,
