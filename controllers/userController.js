@@ -1,14 +1,17 @@
-const { User } = require("../models/index");
+const { User } = require("../models");
 
 const userController = {};
 
 userController.createUser = async (req, res) => {
 
     try {
-    const { date } = req.body;
+    const { rol_id, username, password, email } = req.body;
 
     const newUser = {
-        date : date,
+        rol_id : rol_id,
+        username : username,
+        password : password,
+        email : email
     }
 
     // Guardar la informacion
@@ -17,7 +20,8 @@ userController.createUser = async (req, res) => {
     return res.json(user)
 
 }catch(error){
-    retur .res.status(500).send(error.message)
+
+    return res.status(500).send(error.message)
 }
 };
 

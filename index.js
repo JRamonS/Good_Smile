@@ -1,8 +1,8 @@
 const express = require('express');
-const userController = require('./controllers/userController');
+//const userController = require('./controllers/userController');
 const db = require('./db/db');
 const {Rol} = require ("./models/index");
-const {User} = require ("./models/index");
+//const {User} = require ("./models/index");
 const {Dentist} = require ("./models/index");
 const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
@@ -10,10 +10,16 @@ const {Speciality} = require ("./models/index");
 const {Appointment} = require ("./models/index");
 const {Treatment} = require ("./models/index");
 const {Payment} = require ("./models/index");
+
 const app = express();
-
-
 app.use(express.json());
+
+const userRoutes = require("./views/userRoutes")
+const authRoutes = require("./views/authRoutes")
+app.use(userRoutes)
+app.use(authRoutes)
+
+
 
 const PORT = 3000;
 
@@ -44,7 +50,7 @@ app.get("/users", (req,res) =>{
     return res.send("Welcome to the app")
 });
 
-app.post("/users", userController.createUser) 
+//app.post("/users", userController.createUser) 
 
 
 
