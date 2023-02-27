@@ -244,7 +244,7 @@ app.put("/appointments/:id", async (req, res) =>{
     return res.json(updateAppointment)
 })
 
-<<<<<<< HEAD
+
 app.delete("/appointments/:id", async(req, res) => {
     const appointmentId = req.params.id
     
@@ -252,7 +252,8 @@ app.delete("/appointments/:id", async(req, res) => {
 
     return res.json(deleteAppointment);
 })
-=======
+
+
 //Endpoint Treatment
 
 app.get("/treatments", (req,res) =>{
@@ -305,9 +306,11 @@ app.post("/payments", async (req,res) =>{
 
 });
 
->>>>>>> b7a75c41eb77b3be1873d74641018aca782301b8
+// //Starting server
+// app.listen(PORT, () => console.log("Server on port " + PORT));
 
-//Starting server
-app.listen(PORT, () => console.log("Server on port " + PORT));
-
-  
+  db.then(() => {
+    //Starting server
+    app.listen(PORT, () => console.log("Server on port " + PORT));
+})
+    .catch((err) => console.log(err.message)); 

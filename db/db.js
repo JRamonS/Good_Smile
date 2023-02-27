@@ -13,4 +13,8 @@ const sequelize = new Sequelize(
   }
 );
 
-module.exports = sequelize;
+module.exports = sequelize.authenticate()
+.then((db)=>{
+    console.log('MYSQL connected'); 
+    return db;
+});
