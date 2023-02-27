@@ -16,8 +16,10 @@ app.use(express.json());
 
 const userRoutes = require("./views/userRoutes")
 const authRoutes = require("./views/authRoutes")
+const dentistRoutes = require("./views/dentistRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
+app.use(dentistRoutes)
 
 
 
@@ -60,44 +62,6 @@ app.get("/dentists", (req,res) =>{
     return res.send("Welcome dentist")
 });
 
-app.post("/dentists", async (req,res) =>{
-
-    const { user_id, speciality_id, name, surname, email, address,registration_number,phone } = req.body;
-
-    const newDentist = {
-        user_id : user_id,
-        speciality_id : speciality_id,
-        name : name,
-        surname : surname,
-        email : email,
-        address : address,
-        registration_number : registration_number,
-        phone : phone
-    }
-
-    // Guardar la informacion
-    const dentist = await Dentist.create(newDentist)
-
-    return res.json(dentist)
-
-});
-
-
-app.get('/dentists/:id', async (req, res) => {
-    const dentistId = req.params.id;
-
-    const dentist = await Dentist.findByPk(dentistId)
-
-    return res.json(dentist);
-})
-
-app.put("/dentists/:id", async (req, res) =>{
-    const dentistId = req.params.id
-    const { user_id,speciality_id,name, surname, email, address,registration_number,phone } = req.body;
-    const updateDentist = await Dentist.update({user_id:user_id,speciality_id,name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
-    return res.json(updateDentist)
-})
-
 // app.delete("/dentists/:id", async(req, res) => {
 //     const dentistId = req.params.id
     
@@ -105,6 +69,8 @@ app.put("/dentists/:id", async (req, res) =>{
 
 //     return res.json(deleteDentist);
 // })
+
+
 
 //Endpoints pacients
 
