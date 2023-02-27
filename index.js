@@ -62,9 +62,11 @@ app.get("/dentists", (req,res) =>{
 
 app.post("/dentists", async (req,res) =>{
 
-    const { name, surname, email, address,registration_number,phone } = req.body;
+    const { user_id, speciality_id, name, surname, email, address,registration_number,phone } = req.body;
 
     const newDentist = {
+        user_id : user_id,
+        speciality_id : speciality_id,
         name : name,
         surname : surname,
         email : email,
@@ -91,8 +93,8 @@ app.get('/dentists/:id', async (req, res) => {
 
 app.put("/dentists/:id", async (req, res) =>{
     const dentistId = req.params.id
-    const { name, surname, email, address,registration_number,phone } = req.body;
-    const updateDentist = await Dentist.update({name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
+    const { user_id,speciality_id,name, surname, email, address,registration_number,phone } = req.body;
+    const updateDentist = await Dentist.update({user_id:user_id,speciality_id,name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
     return res.json(updateDentist)
 })
 
@@ -112,9 +114,11 @@ app.get("/pacients", (req,res) =>{
 
 app.post("/pacients", async (req,res) =>{
 
-    const { name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+    const { user_id, history_id, name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
     const newPacient = {
+        user_id : user_id,
+        history_id : history_id,
         name : name,
         surname : surname,
         email : email,
@@ -142,9 +146,9 @@ app.get('/pacients/:id', async (req, res) => {
 
 app.put("/pacients/:id", async (req, res) =>{
     const pacientId = req.params.id
-    const { name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+    const { user_id, speciality_id,name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
-    const updatePacient = await Pacient.update({name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
+    const updatePacient = await Pacient.update({user_id, speciality_id,name:name,surname:surname,email:email,address:address,phone:phone,date_of_birth:date_of_birth,gender:gender,postcode:postcode}, {where:{id:pacientId}})
     return res.json(updatePacient)
 })
 
@@ -208,13 +212,16 @@ app.get("/Appointments", (req,res) =>{
 
 app.post("/Appointments", async (req,res) =>{
 
-    const {hour,status,observations,date} = req.body;
+    const {pacient_id,dentist_id,treatment_id,hour,status,observations,date} = req.body;
 
     const newAppointment = {
+        pacient_id : pacient_id,
+        dentist_id: dentist_id,
+        treatment_id : treatment_id,
         hour : hour,
-       status : status,
-       observations : observations,
-       date : date
+        status : status,
+        observations : observations,
+        date : date
     }
 
     // Guardar la informacion
@@ -267,9 +274,10 @@ app.get("/payments", (req,res) =>{
 
 app.post("/payments", async (req,res) =>{
 
-    const {notes,date,amount,payment_method} = req.body;
+    const {treatment_id,notes,date,amount,payment_method} = req.body;
 
     const newPayment = {
+        treatment_id,
         notes : notes,
         date : date,
         amount: amount,
