@@ -204,11 +204,11 @@ app.post("/Specialities", async (req,res) =>{
 
 //Endpint Appointment
 
-app.get("/Appointments", (req,res) =>{
+app.get("/appointments", (req,res) =>{
     return res.send("Your Appointment is")
 });
 
-app.post("/Appointments", async (req,res) =>{
+app.post("/appointments", async (req,res) =>{
 
     const {hour,status,observations,date} = req.body;
 
@@ -226,19 +226,29 @@ app.post("/Appointments", async (req,res) =>{
 
 });
 
-app.put("/Appointments/:id", async (req, res) =>{
+app.get('/appointments/:id', async (req, res) => {
+    const appointmentId = req.params.id;
+
+    const appointment = await Appointment.findByPk(appointmentId)
+
+    return res.json(appointment);
+})
+
+app.put("/appointments/:id", async (req, res) =>{
     const appointmentId = req.params.id
-    const name = req.body.name
-    const updateAppointment = await Appointment.update({name:name}, {where:{id:appointmentId}})
+
+    const {hour,status,observations,date} = req.body;
+    const updateAppointment = await Appointment.update({hour:hour,status:status,observations:observations,date:date}, {where:{id:appointmentId}})
     return res.json(updateAppointment)
 })
 
+app.delete("/appointments/:id", async(req, res) => {
+    const appointmentId = req.params.id
+    
+    const deleteAppointment = await Appointment.destroy({where: { id: appointmentId}})
 
-
-
-
-
-
+    return res.json(deleteAppointment);
+})
 
 //Starting server
 app.listen(PORT, () => console.log("Server on port " + PORT));
