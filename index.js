@@ -7,6 +7,8 @@ const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
 const {Speciality} = require ("./models/index");
 const {Appointment} = require ("./models/index");
+const {Treatment} = require ("./models/index");
+const {Payment} = require ("./models/index");
 const app = express();
 
 
@@ -242,6 +244,7 @@ app.put("/appointments/:id", async (req, res) =>{
     return res.json(updateAppointment)
 })
 
+<<<<<<< HEAD
 app.delete("/appointments/:id", async(req, res) => {
     const appointmentId = req.params.id
     
@@ -249,6 +252,60 @@ app.delete("/appointments/:id", async(req, res) => {
 
     return res.json(deleteAppointment);
 })
+=======
+//Endpoint Treatment
+
+app.get("/treatments", (req,res) =>{
+    return res.send("Your treatment is")
+});
+
+app.post("/treatments", async (req,res) =>{
+
+    const {name,duration,price,description,date,session_num,status} = req.body;
+
+    const newTreatment = {
+        name : name,
+        duration : duration,
+        price : price,
+        description : description,
+        date : date,
+        session_num : session_num,
+        status: status
+
+    }
+
+    // Guardar la informacion
+    const treatment = await Treatment.create(newTreatment)
+
+    return res.json(treatment)
+
+});
+
+//Endpoint Treatment
+
+app.get("/payments", (req,res) =>{
+    return res.send("Your payment is")
+});
+
+app.post("/payments", async (req,res) =>{
+
+    const {notes,date,amount,payment_method} = req.body;
+
+    const newPayment = {
+        notes : notes,
+        date : date,
+        amount: amount,
+        payment_method : payment_method,
+    }
+
+    // Guardar la informacion
+    const payment = await Payment.create(newPayment)
+
+    return res.json(payment)
+
+});
+
+>>>>>>> b7a75c41eb77b3be1873d74641018aca782301b8
 
 //Starting server
 app.listen(PORT, () => console.log("Server on port " + PORT));
