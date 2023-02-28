@@ -15,16 +15,30 @@ historyController.createHistory = async (req, res) => {
     
 
     // Guardar la informacion
-    const history = await History.create(newHistory)
+        const history = await History.create(newHistory)
 
-    return res.json(history)
+        return res.json(history)
 
-}catch(error){
+    }catch(error){
 
     return res.status(500).send(error.message)
-}
+    }
 };
 
+historyController.getHistorytById = async (req, res) => {
+
+    try{
+
+    const historyId = req.params.id;
+
+    const history = await History.findByPk(historyId)
+
+    return res.json(history);
+
+    }catch(error){
+        return res.status(500).send(error.message)
+    }
+};
 
 
 

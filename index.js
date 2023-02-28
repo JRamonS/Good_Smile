@@ -19,11 +19,13 @@ const authRoutes = require("./views/authRoutes")
 const dentistRoutes = require("./views/dentistRoutes")
 const pacientRoutes = require("./views/pacientRoutes")
 const historyRoutes = require("./views/historyRoutes")
+const rolRoutes = require("./views/rolRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
 app.use(pacientRoutes)
 app.use(historyRoutes)
+app.use(rolRoutes)
 
 
 
@@ -38,16 +40,14 @@ app.get("/rols", (req,res) =>{
 
 app.post("/rols", async (req,res) =>{
 
-    const { privilege } = req.body;
+    
 
-    const newRol = {
-        privilege: privilege
-    }
+   
 
     // Guardar la informacion
-    const rol = await Rol.create(newRol)
+   
 
-    return res.json(rol)
+    
 
 });
 

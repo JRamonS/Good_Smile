@@ -30,30 +30,54 @@ dentistController.createDentist = async (req, res) => {
 };
 
 dentistController.getDentistById = async (req, res) => {
-    const dentistId = req.params.id;
 
-    const dentist = await Dentist.findByPk(dentistId)
+    try{
 
-    return res.json(dentist);
-}
+        const dentistId = req.params.id;
+
+        const dentist = await Dentist.findByPk(dentistId)
+
+        return res.json(dentist);
+
+    }catch(error){
+
+        return res.status(500).send(error.message)
+    }
+    };
 
 dentistController.putDentistById = async (req, res) =>{
-    const dentistId = req.params.id
 
-    const { user_id,speciality_id,name, surname, email, address,registration_number,phone } = req.body;
+    try{
 
-    const updateDentist = await Dentist.update({user_id:user_id,speciality_id,name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
+        const dentistId = req.params.id
 
-    return res.json(updateDentist)
-}
+        const { user_id,speciality_id,name, surname, email, address,registration_number,phone } = req.body;
+
+        const updateDentist = await Dentist.update({user_id:user_id,speciality_id,name:name,surname:surname,email:email,address:address,registration_number:registration_number,phone:phone}, {where:{id:dentistId}})
+
+        return res.json(updateDentist)
+
+    }catch(error){
+
+        return res.status(500).send(error.message)
+    }
+};
 
 dentistController.deleteDentistsById = async (req, res) => {
-    const dentistId = req.params.id
-    
-    const deleteDentist = await Dentist.destroy({where: { id: dentistId}})
 
-    return res.json(deleteDentist);
-}
+    try{
+
+        const dentistId = req.params.id
+    
+        const deleteDentist = await Dentist.destroy({where: { id: dentistId}})
+
+        return res.json(deleteDentist);
+
+    }catch(error){
+
+        return res.status(500).send(error.message)
+    }
+};
 
 
 module.exports =  dentistController
