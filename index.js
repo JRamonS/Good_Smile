@@ -20,9 +20,10 @@ const dentistRoutes = require("./views/dentistRoutes")
 const pacientRoutes = require("./views/pacientRoutes")
 const historyRoutes = require("./views/historyRoutes")
 const rolRoutes = require("./views/rolRoutes")
-const appointmentRoutes = require("./views/appointment")
+const appointmentRoutes = require("./views/appointmentRoutes")
 const treatmentRoutes = require("./views/treatmentRoutes")
 const specialityRoutes = require("./views/specialityRouter")
+const peymentRoutes = require("./views/paymentRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
@@ -32,6 +33,7 @@ app.use(rolRoutes)
 app.use(appointmentRoutes)
 app.use(treatmentRoutes)
 app.use(specialityRoutes)
+app.use(peymentRoutes)
 
 
 
@@ -94,20 +96,14 @@ app.get("/payments", (req,res) =>{
 
 app.post("/payments", async (req,res) =>{
 
-    const {treatment_id,notes,date,amount,payment_method} = req.body;
+    
 
-    const newPayment = {
-        treatment_id,
-        notes : notes,
-        date : date,
-        amount: amount,
-        payment_method : payment_method,
-    }
+    
 
     // Guardar la informacion
-    const payment = await Payment.create(newPayment)
+    
 
-    return res.json(payment)
+    
 
 });
 
