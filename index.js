@@ -5,10 +5,10 @@ const {Rol} = require ("./models/index");
 //const {User} = require ("./models/index");
 // const {Dentist} = require ("./models/index");
 // const {Pacient} = require ("./models/index");
-const {History} = require ("./models/index");
-const {Speciality} = require ("./models/index");
-const {Appointment} = require ("./models/index");
-const {Treatment} = require ("./models/index");
+// const {History} = require ("./models/index");
+// const {Speciality} = require ("./models/index");
+// const {Appointment} = require ("./models/index");
+// const {Treatment} = require ("./models/index");
 const {Payment} = require ("./models/index");
 
 const app = express();
@@ -22,6 +22,7 @@ const historyRoutes = require("./views/historyRoutes")
 const rolRoutes = require("./views/rolRoutes")
 const appointmentRoutes = require("./views/appointment")
 const treatmentRoutes = require("./views/treatmentRoutes")
+const specialityRoutes = require("./views/specialityRouter")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
@@ -30,30 +31,18 @@ app.use(historyRoutes)
 app.use(rolRoutes)
 app.use(appointmentRoutes)
 app.use(treatmentRoutes)
+app.use(specialityRoutes)
 
 
 
 
 const PORT = 3000;
 
-//Endpoints rol
 
 app.get("/rols", (req,res) =>{
     return res.send("Welcome to the aplication")
 });
 
-app.post("/rols", async (req,res) =>{
-
-    
-
-   
-
-    // Guardar la informacion
-   
-
-    
-
-});
 
 //Endpoints user
 
@@ -61,11 +50,6 @@ app.get("/users", (req,res) =>{
     return res.send("Welcome to the app")
 });
 
-//app.post("/users", userController.createUser) 
-
-
-
-//Endpoints dentist
 
 app.get("/dentists", (req,res) =>{
     return res.send("Welcome dentist")
@@ -78,15 +62,11 @@ app.get("/pacients", (req,res) =>{
     return res.send("Welcome pacient")
 });
 
-
-
-
 //Endpoints History
 
 app.get("/histories", (req,res) =>{
     return res.send("A new history has been recorded")
 });
-
 
 //Endpoints Speciality
 
@@ -94,57 +74,13 @@ app.get("/Specialities", (req,res) =>{
     return res.send("Your Specialities is")
 });
 
-app.post("/Specialities", async (req,res) =>{
 
-    const { name, description} = req.body;
-
-    const newSpeciality = {
-        name : name,
-       description : description
-    }
-
-    // Guardar la informacion
-    const speciality = await Speciality.create(newSpeciality)
-
-    return res.json(speciality)
-
-});
 
 //Endpint Appointment
 
 app.get("/appointments", (req,res) =>{
     return res.send("Your Appointment is")
 });
-
-
-
-app.get('/appointments/:id', async (req, res) => {
-    
-
-    
-
-    
-})
-
-app.put("/appointments/:id", async (req, res) =>{
-    
-
-    
-    
-    
-})
-
-
-app.delete("/appointments/:id", async(req, res) => {
-    
-    
-    
-
-    
-})
-
-
-//Endpoint Treatment
 
 app.get("/treatments", (req,res) =>{
     return res.send("Your treatment is")
