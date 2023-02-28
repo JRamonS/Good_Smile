@@ -20,12 +20,14 @@ const dentistRoutes = require("./views/dentistRoutes")
 const pacientRoutes = require("./views/pacientRoutes")
 const historyRoutes = require("./views/historyRoutes")
 const rolRoutes = require("./views/rolRoutes")
+const appointmentRoutes = require("./views/appointment")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
 app.use(pacientRoutes)
 app.use(historyRoutes)
 app.use(rolRoutes)
+app.use(appointmentRoutes)
 
 
 
@@ -112,50 +114,31 @@ app.get("/appointments", (req,res) =>{
     return res.send("Your Appointment is")
 });
 
-app.post("/appointments", async (req,res) =>{
 
-    const {pacient_id,dentist_id,treatment_id,hour,status,observations,date} = req.body;
-
-    const newAppointment = {
-        pacient_id : pacient_id,
-        dentist_id: dentist_id,
-        treatment_id : treatment_id,
-        hour : hour,
-        status : status,
-        observations : observations,
-        date : date
-    }
-
-    // Guardar la informacion
-    const appointment = await Appointment.create(newAppointment)
-
-    return res.json(appointment)
-
-});
 
 app.get('/appointments/:id', async (req, res) => {
-    const appointmentId = req.params.id;
+    
 
-    const appointment = await Appointment.findByPk(appointmentId)
+    
 
-    return res.json(appointment);
+    
 })
 
 app.put("/appointments/:id", async (req, res) =>{
-    const appointmentId = req.params.id
+    
 
-    const {hour,status,observations,date} = req.body;
-    const updateAppointment = await Appointment.update({hour:hour,status:status,observations:observations,date:date}, {where:{id:appointmentId}})
-    return res.json(updateAppointment)
+    
+    
+    
 })
 
 
 app.delete("/appointments/:id", async(req, res) => {
-    const appointmentId = req.params.id
     
-    const deleteAppointment = await Appointment.destroy({where: { id: appointmentId}})
+    
+    
 
-    return res.json(deleteAppointment);
+    
 })
 
 

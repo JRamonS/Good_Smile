@@ -30,7 +30,7 @@ pacientController.createPacient = async (req, res) => {
     }
 };
 
-pacientController.getPacienttById = async (req, res) => {
+pacientController.getPacientById = async (req, res) => {
 
     try{
 
@@ -63,7 +63,7 @@ pacientController.putPacientById = async (req, res) =>{
     }
 };
 
-pacientController.deletePacientsById = async(req, res) => {
+pacientController.deletePacientById = async(req, res) => {
 
     try{
 

@@ -3,9 +3,9 @@ const router = require("express").Router();
 
 
 router.post("/pacients", pacientController.createPacient)
-router.get("/pacients/:id", pacientController.getPacienttById)
+router.get("/pacients/:id", pacientController.getPacientById)
 router.put("/pacients/:id", pacientController.putPacientById)
-router.delete("/pacients/:id", pacientController.deletePacientsById)
+router.delete("/pacients/:id", pacientController.deletePacientById)
 
 
 module.exports = router
