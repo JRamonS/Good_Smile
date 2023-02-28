@@ -31,7 +31,9 @@ paymentController.getPaymentById = async (req, res) => {
 
         const paymentId = req.params.id;
 
-        const payment = await Payment.findByPk(paymentId)
+        const payment = await Payment.findByPk(paymentId, {
+            include: {all:true}
+        })
 
         return res.json(payment);
 

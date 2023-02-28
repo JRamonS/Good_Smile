@@ -35,7 +35,9 @@ dentistController.getDentistById = async (req, res) => {
 
         const dentistId = req.params.id;
 
-        const dentist = await Dentist.findByPk(dentistId)
+        const dentist = await Dentist.findByPk(dentistId,{
+            include: {all:true}
+        })
 
         return res.json(dentist);
 
