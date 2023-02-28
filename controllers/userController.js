@@ -25,4 +25,14 @@ userController.createUser = async (req, res) => {
 }
 };
 
+userController.getUserById = async (req, res) => {
+    const userId = req.params.id;
+
+    const user = await User.findByPk(userId,{
+        include: {all:true}
+    })
+
+    return res.json(user);
+}
+
 module.exports =  userController

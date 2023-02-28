@@ -4,7 +4,7 @@ const db = require('./db/db');
 const {Rol} = require ("./models/index");
 //const {User} = require ("./models/index");
 // const {Dentist} = require ("./models/index");
-const {Pacient} = require ("./models/index");
+// const {Pacient} = require ("./models/index");
 const {History} = require ("./models/index");
 const {Speciality} = require ("./models/index");
 const {Appointment} = require ("./models/index");
@@ -18,10 +18,12 @@ const userRoutes = require("./views/userRoutes")
 const authRoutes = require("./views/authRoutes")
 const dentistRoutes = require("./views/dentistRoutes")
 const pacientRoutes = require("./views/pacientRoutes")
+const historyRoutes = require("./views/historyRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
 app.use(pacientRoutes)
+app.use(historyRoutes)
 
 
 
@@ -81,21 +83,6 @@ app.get("/histories", (req,res) =>{
     return res.send("A new history has been recorded")
 });
 
-app.post("/histories", async (req,res) =>{
-
-    const { date, observation } = req.body;
-
-    const newHistory = {
-        date : date,
-        observation : observation
-    }
-
-    // Guardar la informacion
-    const history = await History.create(newHistory)
-
-    return res.json(history)
-
-});
 
 //Endpoints Speciality
 
