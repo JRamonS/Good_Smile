@@ -21,6 +21,7 @@ const pacientRoutes = require("./views/pacientRoutes")
 const historyRoutes = require("./views/historyRoutes")
 const rolRoutes = require("./views/rolRoutes")
 const appointmentRoutes = require("./views/appointment")
+const treatmentRoutes = require("./views/treatmentRoutes")
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
@@ -28,6 +29,7 @@ app.use(pacientRoutes)
 app.use(historyRoutes)
 app.use(rolRoutes)
 app.use(appointmentRoutes)
+app.use(treatmentRoutes)
 
 
 
@@ -148,29 +150,7 @@ app.get("/treatments", (req,res) =>{
     return res.send("Your treatment is")
 });
 
-app.post("/treatments", async (req,res) =>{
 
-    const {name,duration,price,description,date,session_num,status} = req.body;
-
-    const newTreatment = {
-        name : name,
-        duration : duration,
-        price : price,
-        description : description,
-        date : date,
-        session_num : session_num,
-        status: status
-
-    }
-
-    // Guardar la informacion
-    const treatment = await Treatment.create(newTreatment)
-
-    return res.json(treatment)
-
-});
-
-//Endpoint Treatment
 
 app.get("/payments", (req,res) =>{
     return res.send("Your payment is")
