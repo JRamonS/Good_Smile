@@ -16,13 +16,6 @@ module.exports = {
           key: "id"
         }
       },
-      history_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Histories",
-          key: "id"
-        }
-      },
       name: {
         type: Sequelize.STRING
       },

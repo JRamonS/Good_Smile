@@ -14,12 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       //Pacient.belongsToMany(models.Dentist, { through: 'appointments',
       //foreignKey : 'pacient_id' });
 
-      Pacient.belongsTo(models.History);
+      Pacient.hasOne(models.History,{
+        foreignKey : "pacient_id"
+      });
     }
   }
   Pacient.init({
     user_id : DataTypes.INTEGER,
-    history_id: DataTypes.INTEGER,
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
     email: DataTypes.STRING,

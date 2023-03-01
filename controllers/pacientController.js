@@ -5,11 +5,10 @@ const pacientController = {};
 pacientController.createPacient = async (req, res) => {
 
     try {
-        const { user_id, history_id, name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
+        const { user_id, name, surname, email, address,phone,date_of_birth,gender,postcode } = req.body;
 
         const newPacient = {
             user_id : user_id,
-            history_id : history_id,
             name : name,
             surname : surname,
             email : email,
@@ -36,7 +35,9 @@ pacientController.getPacientById = async (req, res) => {
 
     const pacientId = req.params.id;
 
-    const pacient = await Pacient.findByPk(pacientId)
+    const pacient = await Pacient.findByPk(pacientId,{
+        include: {all:true}
+    })
 
     return res.json(pacient);
 

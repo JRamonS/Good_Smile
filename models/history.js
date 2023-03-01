@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      History.hasOne(models.Pacient);
+      History.belongsTo(models.Pacient,{
+        foreignKey : "pacient_id"
+      });
     }
   }
   History.init({
+    pacient_id : DataTypes.INTEGER,
     date: DataTypes.STRING,
     observation: DataTypes.TEXT
   }, {

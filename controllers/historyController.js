@@ -6,9 +6,10 @@ historyController.createHistory = async (req, res) => {
 
     try {
 
-        const { date, observation } = req.body;
+        const { pacient_id, date, observation } = req.body;
 
         const newHistory = {
+            pacient_id : pacient_id,
             date : date,
             observation : observation
         }
@@ -31,7 +32,9 @@ historyController.getHistorytById = async (req, res) => {
 
     const historyId = req.params.id;
 
-    const history = await History.findByPk(historyId)
+    const history = await History.findByPk(historyId, {
+        include: {all:true}
+    })
 
     return res.json(history);
 
