@@ -33,7 +33,9 @@ appointmentController.getAppointmentById = async (req, res) => {
 
         const appointmentId = req.params.id;
 
-        const appointment = await Appointment.findByPk(appointmentId)
+        const appointment = await Appointment.findByPk(appointmentId,{
+            include: {all:true}
+        })
 
         return res.json(appointment);
 
