@@ -27,6 +27,20 @@ appointmentController.createAppointment = async (req, res) => {
     }
 };
 
+appointmentController.getAppointment = async(req, res)=> {
+    
+    try{
+
+        const appointment = await Appointment.findAll();
+
+        return res.json(appointment);
+
+    }catch(error){
+
+    return res.status(500).send(error.message)
+    }
+};
+
 appointmentController.getAppointmentById = async (req, res) => {
 
     try{
@@ -77,20 +91,6 @@ appointmentController.deleteAppointmentById = async(req, res) => {
         return res.status(500).send(error.message)
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

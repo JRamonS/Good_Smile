@@ -29,6 +29,20 @@ pacientController.createPacient = async (req, res) => {
     }
 };
 
+pacientController.getPacient = async(req, res)=> {
+    
+    try{
+
+        const pacient = await Pacient.findAll();
+
+        return res.json(pacient);
+
+    }catch(error){
+
+    return res.status(500).send(error.message)
+    }
+};
+
 pacientController.getPacientById = async (req, res) => {
 
     try{

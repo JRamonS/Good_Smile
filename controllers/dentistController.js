@@ -29,6 +29,20 @@ dentistController.createDentist = async (req, res) => {
 }
 };
 
+dentistController.getDentist = async(req, res)=> {
+    
+    try{
+
+        const dentist = await Dentist.findAll();
+
+        return res.json(dentist);
+
+    }catch(error){
+
+    return res.status(500).send(error.message)
+    }
+};
+
 dentistController.getDentistById = async (req, res) => {
 
     try{

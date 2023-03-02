@@ -1,18 +1,8 @@
 const express = require('express');
-//const userController = require('./controllers/userController');
 const db = require('./db/db');
-const {Rol} = require ("./models/index");
-//const {User} = require ("./models/index");
-// const {Dentist} = require ("./models/index");
-// const {Pacient} = require ("./models/index");
-// const {History} = require ("./models/index");
-// const {Speciality} = require ("./models/index");
-// const {Appointment} = require ("./models/index");
-// const {Treatment} = require ("./models/index");
-const {Payment} = require ("./models/index");
+require('dotenv').config();
 
-const app = express();
-app.use(express.json());
+
 
 const userRoutes = require("./views/userRoutes")
 const authRoutes = require("./views/authRoutes")
@@ -24,6 +14,11 @@ const appointmentRoutes = require("./views/appointmentRoutes")
 const treatmentRoutes = require("./views/treatmentRoutes")
 const specialityRoutes = require("./views/specialityRouter")
 const peymentRoutes = require("./views/paymentRoutes")
+
+const app = express();
+
+app.use(express.json());
+
 app.use(userRoutes)
 app.use(authRoutes)
 app.use(dentistRoutes)
@@ -36,79 +31,12 @@ app.use(specialityRoutes)
 app.use(peymentRoutes)
 
 
-
-
 const PORT = 3000;
 
 
-app.get("/rols", (req,res) =>{
-    return res.send("Welcome to the aplication")
-});
-
-
-//Endpoints user
-
-app.get("/users", (req,res) =>{
-    return res.send("Welcome to the app")
-});
-
-
-app.get("/dentists", (req,res) =>{
-    return res.send("Welcome dentist")
-});
-
-
-//Endpoints pacients
-
-app.get("/pacients", (req,res) =>{
-    return res.send("Welcome pacient")
-});
-
-//Endpoints History
-
-app.get("/histories", (req,res) =>{
-    return res.send("A new history has been recorded")
-});
-
-//Endpoints Speciality
-
-app.get("/Specialities", (req,res) =>{
-    return res.send("Your Specialities is")
-});
-
-
-
-//Endpint Appointment
-
-app.get("/appointments", (req,res) =>{
-    return res.send("Your Appointment is")
-});
-
-app.get("/treatments", (req,res) =>{
-    return res.send("Your treatment is")
-});
-
-
-
-app.get("/payments", (req,res) =>{
-    return res.send("Your payment is")
-});
-
-app.post("/payments", async (req,res) =>{
-
-    
-
-    
-
-    // Guardar la informacion
-    
-
-    
-
-});
-
-// //Starting server
-// app.listen(PORT, () => console.log("Server on port " + PORT));
+app.get('/welcome', (req, res) => {
+  return res.send("Bienvenido a mi app")
+})
 
   db.then(() => {
     //Starting server
