@@ -19,10 +19,10 @@ module.exports = {
         gender: "male",
         postcode: "12005", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
 
-      {id: 2, user_id: 5,
-      name: "jaime",
+      {id: 2, user_id: 3,
+      name: "Mario",
       surname: "solsoneitor",
-      email: "lkakaasdddsxñ@gmail.com",
+      email: "mario@gmail.com",
       address: "Av maria",
       phone: "768588384",
       date_of_birth: "07/10/2023",

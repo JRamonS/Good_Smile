@@ -27,19 +27,36 @@ appointmentController.createAppointment = async (req, res) => {
     }
 };
 
-appointmentController.getAppointment = async(req, res)=> {
+appointmentController.getAppointment = async (req, res) => {
+    // process.env.JWT_KEY
+let citasActivas = await Appointment.findAll({
+    // include: {
+    // model: User,
+    // attributes: ['fullName','role_id','phone'],
+    // },
+    attributes: ['pacient_id', 'dentist_id', "treatment_id", "hour", "status"]
+  });
+  res.status(200).json({
+    message: `These are all the appointment in the calendar`,
+    citasActivas,
+  });
+}
+
+// appointmentController.getAppointment = async(req, res)=> {
+
+//     process.env.JWT_KEY
     
-    try{
+//     try{
 
-        const appointment = await Appointment.findAll();
+//         const appointment = await Appointment.findAll();
 
-        return res.json(appointment);
+//         return res.json(appointment);
 
-    }catch(error){
+//     }catch(error){
 
-    return res.status(500).send(error.message)
-    }
-};
+//     return res.status(500).send(error.message)
+//     }
+// };
 
 appointmentController.getAppointmentById = async (req, res) => {
 
