@@ -9,7 +9,7 @@ module.exports = {
      * Example:*/
     await queryInterface.bulkInsert('Appointments', [
       {id: 1, pacient_id : 1,
-        dentist_id: 2,
+        dentist_id: 1,
         treatment_id : 1,
         hour: "18:00",
         status: "pending",
@@ -17,7 +17,7 @@ module.exports = {
         date: "18/09/2018", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"
       },
       {id: 2, pacient_id : 2,
-        dentist_id: 1,
+        dentist_id: 2,
         treatment_id : 2,
         hour: "18:50",
         status: "complete",

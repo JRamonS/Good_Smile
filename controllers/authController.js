@@ -4,28 +4,28 @@ const jwt = require('jsonwebtoken');
 
 const authController = {}
 
-authController.register = async (req,res) => {
+// authController.register = async (req,res) => {
 
-    try{
-        //recuperar info de la peticion
-        const { username, email, password} = req.body;
+//     try{
+//         //recuperar info de la peticion
+//         const { username, email, password} = req.body;
 
-        // tratar esa informaion
-        const encryptedPassword = bcrypt.hashSync(password, 10);
+//         // tratar esa informaion
+//         const encryptedPassword = bcrypt.hashSync(password, 10);
 
-        const newUser = await User.create({
-            username: username,
-            email : email,
-            password : encryptedPassword,
-            rol_id : 1
-        })
+//         const newUser = await User.create({
+//             username: username,
+//             email : email,
+//             password : encryptedPassword,
+//             rol_id : "",
+//         })
 
-        return res.json(newUser)
-    }catch (error){
+//         return res.json(newUser)
+//     }catch (error){
 
-        return res.status(500).send(error.message)
-    }
-};
+//         return res.status(500).send(error.message)
+//     }
+// };
 
 authController.login = async (req, res) => {
     try {
@@ -54,8 +54,14 @@ authController.login = async (req, res) => {
             { expiresIn: '2h'}
         );
 
+        return res.json(
+            {
+                success: true,
+                message: "Login successfully",
+                token: token
+            }
+        )
 
-        return res.json(token)
     } catch (error) {
         return res.status(500).send(error.message)
     }

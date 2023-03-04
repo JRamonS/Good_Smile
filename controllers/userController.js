@@ -1,31 +1,36 @@
 const { User } = require("../models");
+const bcrypt = require("bcrypt");
 
 const userController = {};
 
-userController.createUser = async (req, res) => {
+userController.createUser = async (req,res) => {
 
-    try {
+    try{
+        //recuperar info de la peticion
+        const { username, email, password, rol_id} = req.body;
 
-        const { rol_id, username, password, email } = req.body;
+        // tratar esa informaion
+        const encryptedPassword = bcrypt.hashSync(password, 10);
 
-        const newUser = {
+        const newUser = await User.create({
         rol_id : rol_id,
         username : username,
-        password : password,
+        password : encryptedPassword,
         email : email
-        }
+        })
 
-    // Guardar la informacion
-        const user = await User.create(newUser)
+        return res.json(
+            {
+                success: true,
+                message: "User registered",
+                data: newUser
+            })
 
-        return res.json(user)
+    }catch (error){
 
-    }catch(error){
-
-    return res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 };
-
 
 
 userController.getUserById = async (req, res) => {
