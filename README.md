@@ -271,7 +271,7 @@ Technologies used:
 - Add future additional tables to the database
 
 ## Project status
-Proyecto en construcción.
+Project under construction
 
 ## Contributions
 Suggestions and contributions are always welcome.  
