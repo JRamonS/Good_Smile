@@ -43,6 +43,30 @@ treatmentController.getTreatmentById = async (req, res) => {
     }
 };
 
+treatmentController.putTreatmentById = async (req, res) =>{
+
+    try{
+
+        const treatmentId = req.params.id
+
+        const {name,duration, price, description,status,date,session_num} = req.body;
+
+        const updateTreatment = await Treatment.update({name : name,
+            duration : duration,
+            price : price,
+            description : description,
+            date : date,
+            session_num : session_num,
+            status: status}, {where:{id:treatmentId}})
+
+        return res.json(updateTreatment)
+
+    }catch(error){
+
+        return res.status(500).send(error.message)
+    }
+}
+
 
 
 

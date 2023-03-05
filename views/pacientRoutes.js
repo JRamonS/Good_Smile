@@ -5,11 +5,11 @@ const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
 
-router.post("/pacients", pacientController.createPacient)
-router.get("/pacients", verifyToken, isAdmin,pacientController.getPacient)
-router.get("/pacients/:id", pacientController.getPacientById)
-router.put("/pacients/:id", pacientController.putPacientById)
-router.delete("/pacients/:id", pacientController.deletePacientById)
+router.post("/pacients", verifyToken,pacientController.createPacient)
+router.get("/pacients", verifyToken, isDentist,pacientController.getPacient)
+router.get("/pacients/:id", verifyToken,pacientController.getPacientById)
+router.put("/pacients/:id", verifyToken,pacientController.putPacientById)
+router.delete("/pacients/:id", verifyToken,isAdmin, pacientController.deletePacientById)
 
 
 module.exports = router

@@ -1,9 +1,12 @@
 const historyController = require("../controllers/historyController");
+const isDentist = require("../middlewares/isDentist");
+const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
 
-router.post("/histories", historyController.createHistory)
-router.get("/histories/:id", historyController.getHistorytById)
+router.post("/histories", verifyToken,historyController.createHistory)
+router.get("/histories/:id", verifyToken,historyController.getHistorytById)
+router.put("/histories/:id", verifyToken,isDentist, historyController.putHistoryById)
 
 
 module.exports = router
