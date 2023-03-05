@@ -1,14 +1,13 @@
-# Welcome to my backend app
+# Welcome to the database of my dental clinic
 
 <details>
-  <summary>Contenido 📝</summary>
+  <summary>Content 📝</summary>
   <ol>
     <li><a href="#objetivo">Objective</a></li>
     <li><a href="#sobre-el-proyecto">About the project</a></li>
-    <li><a href="#deploy🚀">Installation</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#diagrama-bd">Diagram</a></li>
-    <li><a href="#instalación-en-local">Installation</a></li>
+    <li><a href="#instalación-en-local">Installation🚀</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
     <li><a href="#futuras-funcionalidades">Future functionalities</a></li>
     <li><a href="#estado">Project status</a></li>
@@ -27,7 +26,7 @@ This project required a functional API connected to a database for a business, i
 ## About the project
 We have created an api connected to your database for a veterinary clinic where the user can register and login, as well as access different parts of the database depending on the type of user that has been registered.
 
-## Installation 🚀
+## Installation 
  ```
     $ npm install express nodemon dotenv sequelize-cli sequelize sequelize bcrypt jsonwebtoken
 ```
@@ -49,9 +48,9 @@ Technologies used:
 ## Diagram BD
 !['imagen-db'](./images/baseDatos.JPG)
 
-## Installation in local
+## Installation in local🚀
 1. Clone the repository
-2. ` $ npm install `
+2. ` $ npm install express nodemon dotenv sequelize-cli sequelize sequelize bcrypt jsonwebtoken`
 3. We connect our repository with the database 
 4. ``` $ Run the ``` migrations ```. 
 5. ``` $ Execute the seeders ``` 6. 
