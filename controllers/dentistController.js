@@ -1,4 +1,4 @@
-const { Dentist } = require("../models");
+const { Dentist, Appointment, Speciality } = require("../models");
 
 const dentistController = {};
 
@@ -50,7 +50,25 @@ dentistController.getDentistById = async (req, res) => {
         const dentistId = req.params.id;
 
         const dentist = await Dentist.findByPk(dentistId,{
-            include: {all:true}
+            include: [
+                Appointment,
+                {
+                    model: Appointment,
+                    attributes: {
+                        exclude: ["dentist_id", "createdAt", "updatedAt"]
+                    },
+                },
+                Speciality,
+                {
+                    model: Speciality,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                }
+            ],
+            attributes: {
+                exclude: ["user_id", "speciality_id", "createdAt", "updatedAt"]
+            }
         })
 
         return res.json(dentist);

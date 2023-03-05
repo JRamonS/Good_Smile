@@ -1,4 +1,4 @@
-const { Appointment } = require("../models");
+const { Appointment, Treatment, Dentist, Pacient } = require("../models");
 
 const appointmentController = {};
 
@@ -28,12 +28,9 @@ appointmentController.createAppointment = async (req, res) => {
 };
 
 appointmentController.getAppointment = async (req, res) => {
-    // process.env.JWT_KEY
+
 let citasActivas = await Appointment.findAll({
-    // include: {
-    // model: User,
-    // attributes: ['fullName','role_id','phone'],
-    // },
+    
     attributes: ['pacient_id', 'dentist_id', "treatment_id", "hour", "status"]
   });
   res.status(200).json({
@@ -42,21 +39,7 @@ let citasActivas = await Appointment.findAll({
   });
 }
 
-// appointmentController.getAppointment = async(req, res)=> {
 
-//     process.env.JWT_KEY
-    
-//     try{
-
-//         const appointment = await Appointment.findAll();
-
-//         return res.json(appointment);
-
-//     }catch(error){
-
-//     return res.status(500).send(error.message)
-//     }
-// };
 
 appointmentController.getAppointmentById = async (req, res) => {
 
@@ -65,7 +48,33 @@ appointmentController.getAppointmentById = async (req, res) => {
         const appointmentId = req.params.id;
 
         const appointment = await Appointment.findByPk(appointmentId,{
-            include: {all:true}
+            
+                include: [
+                    Treatment,
+                    {
+                        model:Treatment,
+                        attributes: {
+                            exclude: ["createdAt", "updatedAt"]
+                        }
+                        },
+                    {
+                        model: Pacient,
+                        attributes: {
+                            exclude: ["user_id", "createdAt", "updatedAt"]
+                        },
+                    },
+                    {
+                        model: Dentist,
+                        attributes: {
+                            exclude: ["user_id","registration_number", "createdAt", "updatedAt"]
+                        },
+                        
+                    },
+                ],
+                attributes: {
+                    exclude: ["pacient_id", "dentist_id", "treatment_id", "createdAt", "updatedAt"]
+                }
+            
         })
 
         return res.json(appointment);

@@ -34,7 +34,11 @@ treatmentController.getTreatmentById = async (req, res) => {
 
     const treatmentId = req.params.id;
 
-    const treatment = await Treatment.findByPk(treatmentId)
+    const treatment = await Treatment.findByPk(treatmentId, {
+        attributes: {
+            exclude: [ "createdAt", "updatedAt"]
+        }
+    })
 
     return res.json(treatment);
 

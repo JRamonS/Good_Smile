@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Rol } = require("../models");
 const bcrypt = require("bcrypt");
 
 const userController = {};
@@ -39,13 +39,21 @@ userController.getUserById = async (req, res) => {
 
         const userId = req.params.id;
 
-        const user = await User.findByPk(userId,{
-        
-        attibutes: {
-            exclude: ["password"]
-        },
-        include: {all:true}
-        })
+        const user = await User.findByPk(userId,
+            {
+                include: [
+                    Rol,
+                    {
+                        model: Rol,
+                        attributes: {
+                            exclude: ["id", "createdAt", "updatedAt"]
+                        },
+                    },
+                ],
+                attributes: {
+                    exclude: ["rol_id", "password", "createdAt", "updatedAt"]
+                }
+            })
 
         if (!user){
             return res.send("User Not Found")

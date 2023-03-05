@@ -1,4 +1,4 @@
-const { Payment } = require("../models");
+const { Payment, Treatment } = require("../models");
 
 const paymentController = {};
 
@@ -32,7 +32,18 @@ paymentController.getPaymentById = async (req, res) => {
         const paymentId = req.params.id;
 
         const payment = await Payment.findByPk(paymentId, {
-            include: {all:true}
+            include: [
+                Treatment,
+                {
+                    model: Treatment,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                },
+            ],
+            attributes: {
+                exclude: ["treatment_id", "createdAt", "updatedAt"]
+            }
         })
 
         return res.json(payment);

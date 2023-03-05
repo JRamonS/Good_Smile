@@ -1,4 +1,4 @@
-const { History } = require("../models");
+const { History, Pacient } = require("../models");
 
 const historyController = {};
 
@@ -33,7 +33,18 @@ historyController.getHistorytById = async (req, res) => {
     const historyId = req.params.id;
 
     const history = await History.findByPk(historyId, {
-        include: {all:true}
+        include: [
+            Pacient,
+            {
+                model: Pacient,
+                attributes: {
+                    exclude: ["user_id", "createdAt", "updatedAt", "postcode", "address"]
+                },
+            },
+        ],
+        attributes: {
+            exclude: ["pacient_id", "createdAt", "updatedAt"]
+        }
     })
 
     return res.json(history);
