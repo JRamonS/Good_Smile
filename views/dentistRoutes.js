@@ -3,7 +3,7 @@ const isAdmin = require("../middlewares/isAdmin");
 const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
-
+// All available routes for the model Dentist
 router.post("/dentists", verifyToken, dentistController.createDentist)
 router.get("/dentists", verifyToken,isAdmin, dentistController.getDentist)
 router.get("/dentists/:id", verifyToken,dentistController.getDentistById)

@@ -2,6 +2,8 @@ const { History, Pacient } = require("../models");
 
 const historyController = {};
 
+//Function for history creation
+
 historyController.createHistory = async (req, res) => {
 
     try {
@@ -13,9 +15,7 @@ historyController.createHistory = async (req, res) => {
             date : date,
             observation : observation
         }
-    
 
-    // Guardar la informacion
         const history = await History.create(newHistory)
 
         return res.json(history)
@@ -25,6 +25,8 @@ historyController.createHistory = async (req, res) => {
     return res.status(500).send(error.message)
     }
 };
+
+//Function to display the history by history id
 
 historyController.getHistorytById = async (req, res) => {
 
@@ -53,6 +55,8 @@ historyController.getHistorytById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for History modify
 
 historyController.putHistoryById = async (req, res) =>{
 

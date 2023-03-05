@@ -4,7 +4,7 @@ const isDentist = require("../middlewares/isDentist");
 const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
-
+// All available routes for the model Pacient
 router.post("/pacients", verifyToken,pacientController.createPacient)
 router.get("/pacients", verifyToken, isDentist,pacientController.getPacient)
 router.get("/pacients/:id", verifyToken,pacientController.getPacientById)

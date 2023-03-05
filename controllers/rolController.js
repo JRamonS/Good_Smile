@@ -2,6 +2,8 @@ const { Rol } = require("../models");
 
 const rolController = {};
 
+//Function for rol creation
+
 rolController.createRol = async (req, res) => {
 
     try {
@@ -11,7 +13,6 @@ rolController.createRol = async (req, res) => {
             privilege: privilege
         }
 
-    // Guardar la informacion
         const rol = await Rol.create(newRol)
 
         return res.json(rol)
@@ -21,6 +22,8 @@ rolController.createRol = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function to display the user by rol id
 
 rolController.getRolById = async (req, res) => {
 

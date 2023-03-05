@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const authController = {}
 
-
+//Function for users login
 
 authController.login = async (req, res) => {
     try {
@@ -12,10 +12,12 @@ authController.login = async (req, res) => {
 
         const user = await User.findOne({where: {email: email}});
 
+        //if this user does not exist, it exits
         if(!user) {
             return res.send('Wrong Credentials')
         }
-
+        
+        //if the user exists, compare the token of the passwords
         const isMatch = bcrypt.compareSync(password, user.password);
 
         if(!isMatch) {
@@ -28,11 +30,14 @@ authController.login = async (req, res) => {
                 email: user.email,
                 rolId: user.rol_id,
                 username: user.username,
-            }, 
+            },
+
+        //the token will have a duration of 2 hours
             'secreto',
             { expiresIn: '2h'}
         );
 
+        //if the users login correctly, the token is displayed.
         return res.json(
             {
                 success: true,

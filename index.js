@@ -4,20 +4,13 @@ require('dotenv').config();
 
 const routes = require("./router");
 
-
 const app = express();
 
 app.use(express.json());
 app.use(routes)
 
-
-
+//PORT
 const PORT = process.env.PORT || 3000;
-
-
-app.get('/welcome', (req, res) => {
-  return res.send("Bienvenido a mi app")
-})
 
   db.then(() => {
     //Starting server

@@ -9,8 +9,16 @@ module.exports = {
      *
      * Example:*/
     await queryInterface.bulkInsert('Specialities', [
-      {id: 1, name: "odontologo", description : "quitar dientes", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-      {id: 2,name: "anestesista", description: "poner anestesia", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"}
+      {id: 1, 
+        name: "odontologo", 
+        description : "quitar dientes", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00"},
+      {id: 2,
+        name: "anestesista", 
+        description: "poner anestesia", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00"}
   ], {});
   },
 

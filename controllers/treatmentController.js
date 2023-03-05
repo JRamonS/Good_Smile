@@ -2,6 +2,8 @@ const { Treatment } = require("../models");
 
 const treatmentController = {};
 
+//Function for Treatment creation
+
 treatmentController.createTreatment = async (req, res) => {
 
     try {
@@ -28,6 +30,8 @@ treatmentController.createTreatment = async (req, res) => {
     }
 };
 
+//Function to display the user by treatment id
+
 treatmentController.getTreatmentById = async (req, res) => {
 
     try{
@@ -46,6 +50,8 @@ treatmentController.getTreatmentById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Treatment modify
 
 treatmentController.putTreatmentById = async (req, res) =>{
 

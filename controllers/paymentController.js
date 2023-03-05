@@ -2,6 +2,8 @@ const { Payment, Treatment } = require("../models");
 
 const paymentController = {};
 
+//Function for payment creation
+
 paymentController.createPayment = async (req, res) => {
 
     try {
@@ -24,6 +26,8 @@ paymentController.createPayment = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function to display the user by payment id
 
 paymentController.getPaymentById = async (req, res) => {
 

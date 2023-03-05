@@ -2,6 +2,8 @@ const { Appointment, Treatment, Dentist, Pacient } = require("../models");
 
 const appointmentController = {};
 
+//Function for appointment create
+
 appointmentController.createAppointment = async (req, res) => {
 
     try {
@@ -16,7 +18,7 @@ appointmentController.createAppointment = async (req, res) => {
             observations : observations,
             date : date
         }
-           // Guardar la informacion
+
         const appointment = await Appointment.create(newAppointment)
 
         return res.json(appointment)
@@ -26,6 +28,8 @@ appointmentController.createAppointment = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function to display all appointments
 
 appointmentController.getAppointment = async (req, res) => {
 
@@ -39,7 +43,7 @@ let citasActivas = await Appointment.findAll({
   });
 }
 
-
+//Function to display the appointment by appointment id
 
 appointmentController.getAppointmentById = async (req, res) => {
 
@@ -74,7 +78,6 @@ appointmentController.getAppointmentById = async (req, res) => {
                 attributes: {
                     exclude: ["pacient_id", "dentist_id", "treatment_id", "createdAt", "updatedAt"]
                 }
-            
         })
 
         return res.json(appointment);
@@ -83,6 +86,8 @@ appointmentController.getAppointmentById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Appointment modify 
 
 appointmentController.putAppointmentById = async (req, res) =>{
 
@@ -102,6 +107,8 @@ appointmentController.putAppointmentById = async (req, res) =>{
     }
 };
 
+//Function for appointment delete
+
 appointmentController.deleteAppointmentById = async(req, res) => {
 
     try{
@@ -117,7 +124,5 @@ appointmentController.deleteAppointmentById = async(req, res) => {
         return res.status(500).send(error.message)
     }
 };
-
-
 
 module.exports =  appointmentController

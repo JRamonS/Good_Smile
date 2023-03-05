@@ -3,13 +3,14 @@ const bcrypt = require("bcrypt");
 
 const userController = {};
 
+//Function for user creation
+
 userController.createUser = async (req,res) => {
 
     try{
-        //recuperar info de la peticion
+        
         const { username, email, password, rol_id} = req.body;
 
-        // tratar esa informaion
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const newUser = await User.create({
@@ -32,6 +33,7 @@ userController.createUser = async (req,res) => {
     }
 };
 
+//Function to display the user by user id
 
 userController.getUserById = async (req, res) => {
 
@@ -65,6 +67,8 @@ userController.getUserById = async (req, res) => {
         return res.status(500).send(error.message)
     }   
 };
+
+//Function for user delete
 
 userController.deleteUserById = async(req, res) => {
 

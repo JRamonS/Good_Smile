@@ -2,6 +2,8 @@ const { Dentist, Appointment, Speciality } = require("../models");
 
 const dentistController = {};
 
+//Function for dentist creation
+
 dentistController.createDentist = async (req, res) => {
 
     try {
@@ -18,7 +20,6 @@ dentistController.createDentist = async (req, res) => {
             phone : phone
         }
 
-   // Guardar la informacion
    const dentist = await Dentist.create(newDentist)
 
    return res.json(dentist)
@@ -28,6 +29,8 @@ dentistController.createDentist = async (req, res) => {
     return res.status(500).send(error.message)
 }
 };
+
+//Function to display all dentists
 
 dentistController.getDentist = async(req, res)=> {
     
@@ -42,6 +45,8 @@ dentistController.getDentist = async(req, res)=> {
     return res.status(500).send(error.message)
     }
 };
+
+//Function to display the dentist by dentist id
 
 dentistController.getDentistById = async (req, res) => {
 
@@ -79,6 +84,8 @@ dentistController.getDentistById = async (req, res) => {
     }
     };
 
+//Function for Treatment modify    
+
 dentistController.putDentistById = async (req, res) =>{
 
     try{
@@ -96,6 +103,8 @@ dentistController.putDentistById = async (req, res) =>{
         return res.status(500).send(error.message)
     }
 };
+
+//Function for dentist delete
 
 dentistController.deleteDentistsById = async (req, res) => {
 

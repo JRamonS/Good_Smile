@@ -2,6 +2,8 @@ const { Pacient, Appointment, Dentist} = require("../models");
 
 const pacientController = {};
 
+//Function for pacient creation
+
 pacientController.createPacient = async (req, res) => {
 
     try {
@@ -29,6 +31,8 @@ pacientController.createPacient = async (req, res) => {
     }
 };
 
+//Function to display all pacients
+
 pacientController.getPacient = async(req, res)=> {
     
     try{
@@ -42,6 +46,8 @@ pacientController.getPacient = async(req, res)=> {
     return res.status(500).send(error.message)
     }
 };
+
+//Function to display the pacient by pacient id
 
 pacientController.getPacientById = async (req, res) => {
 
@@ -73,6 +79,8 @@ pacientController.getPacientById = async (req, res) => {
     }
 };
 
+//Function for Treatment modify
+
 pacientController.putPacientById = async (req, res) =>{
 
     try{
@@ -90,6 +98,8 @@ pacientController.putPacientById = async (req, res) =>{
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Pacient delete only for dentist rol
 
 pacientController.deletePacientById = async(req, res) => {
 

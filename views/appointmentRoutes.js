@@ -3,7 +3,7 @@ const isDentist = require("../middlewares/isDentist");
 const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
-
+// All available routes for the model Appointment
 router.post("/appointments", verifyToken,appointmentController.createAppointment)
 router.get("/appointments", verifyToken,isDentist,appointmentController.getAppointment)
 router.get("/appointments/:id", verifyToken,appointmentController.getAppointmentById)

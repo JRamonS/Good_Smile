@@ -19,14 +19,34 @@ module.exports = {
      *
      * Example:*/
     await queryInterface.bulkInsert('Users', [
-      {id: 1,username: "Alyna", password : encryptedPassword1, email: "alyna@gmail.com", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00", rol_id: 3},
-
-      {id: 2,username: "Ignacio", password : encryptedPassword2, email: "ignacio@gmail.com", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00", rol_id: 2},
-      
-
-      {id: 3,username: "Mario", password : encryptedPassword3, email: "mario@gmail.com", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00", rol_id: 1},
-
-      {id: 4,username: "Pedro", password : encryptedPassword4, email: "pedro@gmail.com", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00", rol_id: 2},
+      {id: 1,
+        username: "Alyna", 
+        password : encryptedPassword1, 
+        email: "alyna@gmail.com", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00", 
+        rol_id: 3},
+      {id: 2,
+        username: "Ignacio", 
+        password : encryptedPassword2, 
+        email: "ignacio@gmail.com", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00", 
+        rol_id: 2},
+      {id: 3,
+        username: "Mario", 
+        password : encryptedPassword3, 
+        email: "mario@gmail.com", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00", 
+        rol_id: 1},
+      {id: 4,
+        username: "Pedro", 
+        password : encryptedPassword4, 
+        email: "pedro@gmail.com", 
+        createdAt: "2023-02-22 00:00:00", 
+        updatedAt: "2023-02-22 00:00:00", 
+        rol_id: 2},
  
   ], {});
   },

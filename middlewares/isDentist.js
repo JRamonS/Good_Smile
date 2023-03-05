@@ -5,26 +5,24 @@ const isDentist = (req, res, next) => {
         if (!authorization) {
             return res.send('Invalid token');
         }
+        //Separate the token from the bearer
         const [strategy, token] = authorization.split(" ");
+        //Call the token from the environment variable
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         req.userId = decoded.userId;
         req.rolId = decoded.rolId;
         req.email = decoded.email
-
+        //if the user_id is not 2, you are not a dentist and you will not be able to login
         if (req.rolId !==2 ){
-
             return res.status(500).json({
                         success: true,
                         message: "You don't have permissions.",
                       });
-            // return res.send('You dont have enough power')
         }
-
         next();
-
+        //Pick up the possible error
     } catch (error) {
-        
             return res.status(500).json({
               success: false,
               message: "Something went wrong",
@@ -32,7 +30,6 @@ const isDentist = (req, res, next) => {
             });
     }
 }
-
 
 module.exports = isDentist;
 
