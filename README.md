@@ -24,7 +24,7 @@
 ## Objective
 This project required a functional API connected to a database for a business, in this case a dental clinic, with one-to-many and one-to-one relationships as well as verification tokens for access to certain sections of the clinic's website depending on the type of user.
 ## About the project
-We have created an api connected to your database for a dental clinic where the user can register and login, as well as access different parts of the database depending on the type of user that has been registered.
+We have created an api connected to the database for a dental clinic where the user can register and login, as well as access different parts of the database depending on the type of user that has been registered.
 
 ## Stack
 Technologies used:
@@ -48,9 +48,8 @@ Technologies used:
 2. ` $ npm install express nodemon dotenv sequelize-cli sequelize sequelize bcrypt jsonwebtoken`
 3. We connect our repository with the database 
 4. ``` $ Run the ``` migrations ```. 
-5. ``` $ Execute the seeders ``` 6. 
-6. ``` $ npm run dev ``` $ npm run dev ``` 
-7. ...
+5. ``` $ Execute the seeders ``. 
+6. ``` $ npm run dev ``` $ npm run dev ```.
 
 ## Endpoints
 <details>
@@ -317,3 +316,4 @@ I thank my colleagues for their time dedicated to this project:
 <a href = "mailto:solsona1008@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
 <a href="https://www.linkedin.com/in/adrian-solsona-miralles-415b27182/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 </p>
+<a href="https://www.linkedin.com/in/jose-ramon-rosario-36721a242/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
