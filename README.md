@@ -29,7 +29,7 @@ We have created an api connected to your database for a veterinary clinic where 
 
 ## Installation 🚀
  ```
-    $ npm install express nodemon dotenv sequelize-cli     sequelize sequelize bcrypt jsonwebtoken
+    $ npm install express nodemon dotenv sequelize-cli sequelize sequelize bcrypt jsonwebtoken
 ```
 
 ## Stack
@@ -47,7 +47,7 @@ Technologies used:
  </div>
 
 ## Diagram BD
-!['imagen-db'](./image/baseDatos.JPG)
+!['imagen-db'](./images/baseDatos.JPG)
 
 ## Installation in local
 1. Clone the repository
@@ -270,7 +270,7 @@ Technologies used:
 - Control all access to each of the routes through tokens
 - Add future additional tables to the database
 
-### Proyecto status
+## Project status
 Proyecto en construcción.
 
 ## Contributions
@@ -303,7 +303,7 @@ To achieve my goal I have gathered information from:
 - Sequelize: https://sequelize.org/
 - Npm: https://www.npmjs.com/
 
-### Conclusion
+## Conclusion
 We managed to raise and develop the proposed objective of creating an api connected to its database for a veterinary clinic using sequelize node and javascipt technologies. It addressed the main aspects of the project. as the possibility of registration and login, modification and deletion of appointments, and display of treatments, access via tokens to different routes etc..
 
 It was possible to identify the main design problems of the database, the various difficulties that arose especially with the method of verification of the token and the different relationships between the tables of the database that were managed to address adequately so that all the functionalities foreseen in the basic design of the project were correctly carried out.
