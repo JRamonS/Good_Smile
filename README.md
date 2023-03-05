@@ -26,11 +26,6 @@ This project required a functional API connected to a database for a business, i
 ## About the project
 We have created an api connected to your database for a veterinary clinic where the user can register and login, as well as access different parts of the database depending on the type of user that has been registered.
 
-## Installation 
- ```
-    $ npm install express nodemon dotenv sequelize-cli sequelize sequelize bcrypt jsonwebtoken
-```
-
 ## Stack
 Technologies used:
 <div align="center">
