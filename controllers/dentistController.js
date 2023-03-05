@@ -1,6 +1,8 @@
-const { Dentist } = require("../models");
+const { Dentist, Appointment, Speciality } = require("../models");
 
 const dentistController = {};
+
+//Function for dentist creation
 
 dentistController.createDentist = async (req, res) => {
 
@@ -18,7 +20,6 @@ dentistController.createDentist = async (req, res) => {
             phone : phone
         }
 
-   // Guardar la informacion
    const dentist = await Dentist.create(newDentist)
 
    return res.json(dentist)
@@ -28,6 +29,8 @@ dentistController.createDentist = async (req, res) => {
     return res.status(500).send(error.message)
 }
 };
+
+//Function to display all dentists
 
 dentistController.getDentist = async(req, res)=> {
     
@@ -43,6 +46,8 @@ dentistController.getDentist = async(req, res)=> {
     }
 };
 
+//Function to display the dentist by dentist id
+
 dentistController.getDentistById = async (req, res) => {
 
     try{
@@ -50,7 +55,25 @@ dentistController.getDentistById = async (req, res) => {
         const dentistId = req.params.id;
 
         const dentist = await Dentist.findByPk(dentistId,{
-            include: {all:true}
+            include: [
+                Appointment,
+                {
+                    model: Appointment,
+                    attributes: {
+                        exclude: ["dentist_id", "createdAt", "updatedAt"]
+                    },
+                },
+                Speciality,
+                {
+                    model: Speciality,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                }
+            ],
+            attributes: {
+                exclude: ["user_id", "speciality_id", "createdAt", "updatedAt"]
+            }
         })
 
         return res.json(dentist);
@@ -60,6 +83,8 @@ dentistController.getDentistById = async (req, res) => {
         return res.status(500).send(error.message)
     }
     };
+
+//Function for Treatment modify    
 
 dentistController.putDentistById = async (req, res) =>{
 
@@ -78,6 +103,8 @@ dentistController.putDentistById = async (req, res) =>{
         return res.status(500).send(error.message)
     }
 };
+
+//Function for dentist delete
 
 dentistController.deleteDentistsById = async (req, res) => {
 

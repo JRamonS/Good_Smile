@@ -1,32 +1,39 @@
-const { User } = require("../models");
+const { User, Rol } = require("../models");
+const bcrypt = require("bcrypt");
 
 const userController = {};
 
-userController.createUser = async (req, res) => {
+//Function for user creation
 
-    try {
+userController.createUser = async (req,res) => {
 
-        const { rol_id, username, password, email } = req.body;
+    try{
+        
+        const { username, email, password, rol_id} = req.body;
 
-        const newUser = {
+        const encryptedPassword = bcrypt.hashSync(password, 10);
+
+        const newUser = await User.create({
         rol_id : rol_id,
         username : username,
-        password : password,
+        password : encryptedPassword,
         email : email
-        }
+        })
 
-    // Guardar la informacion
-        const user = await User.create(newUser)
+        return res.json(
+            {
+                success: true,
+                message: "User registered",
+                data: newUser
+            })
 
-        return res.json(user)
+    }catch (error){
 
-    }catch(error){
-
-    return res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 };
 
-
+//Function to display the user by user id
 
 userController.getUserById = async (req, res) => {
 
@@ -34,13 +41,21 @@ userController.getUserById = async (req, res) => {
 
         const userId = req.params.id;
 
-        const user = await User.findByPk(userId,{
-        
-        attibutes: {
-            exclude: ["password"]
-        },
-        include: {all:true}
-        })
+        const user = await User.findByPk(userId,
+            {
+                include: [
+                    Rol,
+                    {
+                        model: Rol,
+                        attributes: {
+                            exclude: ["id", "createdAt", "updatedAt"]
+                        },
+                    },
+                ],
+                attributes: {
+                    exclude: ["rol_id", "password", "createdAt", "updatedAt"]
+                }
+            })
 
         if (!user){
             return res.send("User Not Found")
@@ -52,6 +67,8 @@ userController.getUserById = async (req, res) => {
         return res.status(500).send(error.message)
     }   
 };
+
+//Function for user delete
 
 userController.deleteUserById = async(req, res) => {
 

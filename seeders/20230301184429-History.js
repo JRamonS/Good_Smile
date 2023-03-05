@@ -8,12 +8,18 @@ module.exports = {
      *
      * Example:*/
     await queryInterface.bulkInsert('Histories', [
-      {id: 1, pacient_id : 1,
+      {id: 1,
+        pacient_id : 1,
         date: "27/06/2021",
-        observation: "donde estas", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"},
-        {id: 2, pacient_id : 1,
-          date: "20/09/2021",
-          observation: "estoy fuera", createdAt: "2023-02-22 00:00:00", updatedAt: "2023-02-22 00:00:00"}
+        observation: "donde estas",
+        createdAt: "2023-02-22 00:00:00",
+        updatedAt: "2023-02-22 00:00:00"},
+      {id: 2,
+        pacient_id : 1,
+        date: "20/09/2021",
+        observation: "estoy fuera",
+        createdAt: "2023-02-22 00:00:00",
+        updatedAt: "2023-02-22 00:00:00"}
   ], {});
 
   },

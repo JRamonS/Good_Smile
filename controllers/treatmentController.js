@@ -2,6 +2,8 @@ const { Treatment } = require("../models");
 
 const treatmentController = {};
 
+//Function for Treatment creation
+
 treatmentController.createTreatment = async (req, res) => {
 
     try {
@@ -28,13 +30,19 @@ treatmentController.createTreatment = async (req, res) => {
     }
 };
 
+//Function to display the user by treatment id
+
 treatmentController.getTreatmentById = async (req, res) => {
 
     try{
 
     const treatmentId = req.params.id;
 
-    const treatment = await Treatment.findByPk(treatmentId)
+    const treatment = await Treatment.findByPk(treatmentId, {
+        attributes: {
+            exclude: [ "createdAt", "updatedAt"]
+        }
+    })
 
     return res.json(treatment);
 
@@ -42,6 +50,32 @@ treatmentController.getTreatmentById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Treatment modify
+
+treatmentController.putTreatmentById = async (req, res) =>{
+
+    try{
+
+        const treatmentId = req.params.id
+
+        const {name,duration, price, description,status,date,session_num} = req.body;
+
+        const updateTreatment = await Treatment.update({name : name,
+            duration : duration,
+            price : price,
+            description : description,
+            date : date,
+            session_num : session_num,
+            status: status}, {where:{id:treatmentId}})
+
+        return res.json(updateTreatment)
+
+    }catch(error){
+
+        return res.status(500).send(error.message)
+    }
+}
 
 
 

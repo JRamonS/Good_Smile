@@ -1,6 +1,8 @@
-const { Pacient } = require("../models");
+const { Pacient, Appointment, Dentist} = require("../models");
 
 const pacientController = {};
+
+//Function for pacient creation
 
 pacientController.createPacient = async (req, res) => {
 
@@ -29,6 +31,8 @@ pacientController.createPacient = async (req, res) => {
     }
 };
 
+//Function to display all pacients
+
 pacientController.getPacient = async(req, res)=> {
     
     try{
@@ -43,6 +47,8 @@ pacientController.getPacient = async(req, res)=> {
     }
 };
 
+//Function to display the pacient by pacient id
+
 pacientController.getPacientById = async (req, res) => {
 
     try{
@@ -50,8 +56,21 @@ pacientController.getPacientById = async (req, res) => {
     const pacientId = req.params.id;
 
     const pacient = await Pacient.findByPk(pacientId,{
-        include: {all:true}
-    })
+        
+            include: [
+                Appointment,
+                {
+                    model: Appointment,
+                    attributes: {
+                        exclude: ["pacient_id", "createdAt", "updatedAt"]
+                    },
+                }
+            ],
+            attributes: {
+                exclude: ["user_id", "createdAt", "updatedAt"]
+            }
+        }
+    )
 
     return res.json(pacient);
 
@@ -59,6 +78,8 @@ pacientController.getPacientById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Treatment modify
 
 pacientController.putPacientById = async (req, res) =>{
 
@@ -77,6 +98,8 @@ pacientController.putPacientById = async (req, res) =>{
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Pacient delete only for dentist rol
 
 pacientController.deletePacientById = async(req, res) => {
 

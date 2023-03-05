@@ -1,9 +1,12 @@
-const tretmentController = require("../controllers/treatmentController");
+const treatmentController = require("../controllers/treatmentController");
+const isDentist = require("../middlewares/isDentist");
+const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
-
-router.post("/treatments", tretmentController.createTreatment)
-router.get("/treatments/:id", tretmentController.getTreatmentById)
+// All available routes for the treatment
+router.post("/treatments", verifyToken, isDentist, treatmentController.createTreatment)
+router.get("/treatments/:id", verifyToken, isDentist,treatmentController.getTreatmentById)
+router.put("/treatments/:id", verifyToken, isDentist,treatmentController.putTreatmentById)
 
 
 

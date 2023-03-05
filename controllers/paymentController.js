@@ -1,6 +1,8 @@
-const { Payment } = require("../models");
+const { Payment, Treatment } = require("../models");
 
 const paymentController = {};
+
+//Function for payment creation
 
 paymentController.createPayment = async (req, res) => {
 
@@ -25,6 +27,8 @@ paymentController.createPayment = async (req, res) => {
     }
 };
 
+//Function to display the user by payment id
+
 paymentController.getPaymentById = async (req, res) => {
 
     try{
@@ -32,7 +36,18 @@ paymentController.getPaymentById = async (req, res) => {
         const paymentId = req.params.id;
 
         const payment = await Payment.findByPk(paymentId, {
-            include: {all:true}
+            include: [
+                Treatment,
+                {
+                    model: Treatment,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    },
+                },
+            ],
+            attributes: {
+                exclude: ["treatment_id", "createdAt", "updatedAt"]
+            }
         })
 
         return res.json(payment);

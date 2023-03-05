@@ -2,41 +2,15 @@ const express = require('express');
 const db = require('./db/db');
 require('dotenv').config();
 
-
-
-const userRoutes = require("./views/userRoutes")
-const authRoutes = require("./views/authRoutes")
-const dentistRoutes = require("./views/dentistRoutes")
-const pacientRoutes = require("./views/pacientRoutes")
-const historyRoutes = require("./views/historyRoutes")
-const rolRoutes = require("./views/rolRoutes")
-const appointmentRoutes = require("./views/appointmentRoutes")
-const treatmentRoutes = require("./views/treatmentRoutes")
-const specialityRoutes = require("./views/specialityRouter")
-const peymentRoutes = require("./views/paymentRoutes")
+const routes = require("./router");
 
 const app = express();
 
 app.use(express.json());
+app.use(routes)
 
-app.use(userRoutes)
-app.use(authRoutes)
-app.use(dentistRoutes)
-app.use(pacientRoutes)
-app.use(historyRoutes)
-app.use(rolRoutes)
-app.use(appointmentRoutes)
-app.use(treatmentRoutes)
-app.use(specialityRoutes)
-app.use(peymentRoutes)
-
-
-const PORT = 3000;
-
-
-app.get('/welcome', (req, res) => {
-  return res.send("Bienvenido a mi app")
-})
+//PORT
+const PORT = process.env.PORT || 3000;
 
   db.then(() => {
     //Starting server

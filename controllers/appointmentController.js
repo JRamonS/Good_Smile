@@ -1,6 +1,8 @@
-const { Appointment } = require("../models");
+const { Appointment, Treatment, Dentist, Pacient } = require("../models");
 
 const appointmentController = {};
+
+//Function for appointment create
 
 appointmentController.createAppointment = async (req, res) => {
 
@@ -16,7 +18,7 @@ appointmentController.createAppointment = async (req, res) => {
             observations : observations,
             date : date
         }
-           // Guardar la informacion
+
         const appointment = await Appointment.create(newAppointment)
 
         return res.json(appointment)
@@ -27,19 +29,21 @@ appointmentController.createAppointment = async (req, res) => {
     }
 };
 
-appointmentController.getAppointment = async(req, res)=> {
+//Function to display all appointments
+
+appointmentController.getAppointment = async (req, res) => {
+
+let citasActivas = await Appointment.findAll({
     
-    try{
+    attributes: ['pacient_id', 'dentist_id', "treatment_id", "hour", "status"]
+  });
+  res.status(200).json({
+    message: `These are all the appointment in the calendar`,
+    citasActivas,
+  });
+}
 
-        const appointment = await Appointment.findAll();
-
-        return res.json(appointment);
-
-    }catch(error){
-
-    return res.status(500).send(error.message)
-    }
-};
+//Function to display the appointment by appointment id
 
 appointmentController.getAppointmentById = async (req, res) => {
 
@@ -48,7 +52,32 @@ appointmentController.getAppointmentById = async (req, res) => {
         const appointmentId = req.params.id;
 
         const appointment = await Appointment.findByPk(appointmentId,{
-            include: {all:true}
+            
+                include: [
+                    Treatment,
+                    {
+                        model:Treatment,
+                        attributes: {
+                            exclude: ["createdAt", "updatedAt"]
+                        }
+                        },
+                    {
+                        model: Pacient,
+                        attributes: {
+                            exclude: ["user_id", "createdAt", "updatedAt"]
+                        },
+                    },
+                    {
+                        model: Dentist,
+                        attributes: {
+                            exclude: ["user_id","registration_number", "createdAt", "updatedAt"]
+                        },
+                        
+                    },
+                ],
+                attributes: {
+                    exclude: ["pacient_id", "dentist_id", "treatment_id", "createdAt", "updatedAt"]
+                }
         })
 
         return res.json(appointment);
@@ -57,6 +86,8 @@ appointmentController.getAppointmentById = async (req, res) => {
         return res.status(500).send(error.message)
     }
 };
+
+//Function for Appointment modify 
 
 appointmentController.putAppointmentById = async (req, res) =>{
 
@@ -76,6 +107,8 @@ appointmentController.putAppointmentById = async (req, res) =>{
     }
 };
 
+//Function for appointment delete
+
 appointmentController.deleteAppointmentById = async(req, res) => {
 
     try{
@@ -91,7 +124,5 @@ appointmentController.deleteAppointmentById = async(req, res) => {
         return res.status(500).send(error.message)
     }
 };
-
-
 
 module.exports =  appointmentController
