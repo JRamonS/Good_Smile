@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
         //Separate the token from the bearer
         const [strategy, token] = authorization.split(" ");
         //Verify the token with your secret
-        const decoded = jwt.verify(token, 'secreto');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         req.userId = decoded.userId;
         req.roleId = decoded.roleId;
