@@ -47,6 +47,8 @@ let citasActivas = await Appointment.findAll({
 
 appointmentController.getAppointmentById = async (req, res) => {
 
+    process.env.JWT_KEY
+
     try{
 
         const appointmentId = req.params.id;

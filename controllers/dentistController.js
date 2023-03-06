@@ -1,4 +1,4 @@
-const { Dentist, Appointment, Speciality } = require("../models");
+const { Dentist, Appointment, Speciality, Pacient, Treatment } = require("../models");
 
 const dentistController = {};
 
@@ -55,12 +55,33 @@ dentistController.getDentistById = async (req, res) => {
         const dentistId = req.params.id;
 
         const dentist = await Dentist.findByPk(dentistId,{
+
             include: [
                 Appointment,
                 {
                     model: Appointment,
                     attributes: {
-                        exclude: ["dentist_id", "createdAt", "updatedAt"]
+                        exclude: ["pacient_id","dentist_id","treatment_id", "createdAt", "updatedAt"],
+                    },
+                    include:{
+                        model: Pacient,
+                        attributes: {
+                            exclude: ["user_id","createdAt", "updatedAt"],
+                            include: ["name", "surname", "address", "email", "phone"]
+                        },
+                    },
+                },
+                {
+                    model: Appointment,
+                    attributes: {
+                        exclude: ["pacient_id","dentist_id", "createdAt", "updatedAt"],
+                    },
+                    include:{
+                        model: Treatment,
+                        attributes: {
+                            exclude: ["treatment_id","createdAt", "updatedAt"],
+                            include:["name", "duration", "price", "session_num", "status"] 
+                        },
                     },
                 },
                 Speciality,

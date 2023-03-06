@@ -1,4 +1,4 @@
-const { Pacient, Appointment, Dentist} = require("../models");
+const { Pacient, Appointment, Dentist, Treatment} = require("../models");
 
 const pacientController = {};
 
@@ -56,7 +56,39 @@ pacientController.getPacientById = async (req, res) => {
     const pacientId = req.params.id;
 
     const pacient = await Pacient.findByPk(pacientId,{
-        
+
+        include: [
+            Appointment,
+            {
+                model: Appointment,
+                attributes: {
+                    exclude: ["pacient_id","dentist_id","treatment_id", "createdAt", "updatedAt"],
+                },  
+                include:{
+                    model: Dentist,
+                    attributes: {
+                        exclude: ["dentist_id","createdAt", "updatedAt"],
+                        include: ["name", "surname", "address", "email", "phone", "speciality_id"]
+                    },
+                },
+            },
+            {
+                model: Appointment,
+                attributes: {
+                    exclude: ["pacient_id","dentist_id", "createdAt", "updatedAt"],
+                },
+                include:{
+                    model: Treatment,
+                    attributes: {
+                        exclude: ["treatment_id","createdAt", "updatedAt"],
+                        include:["name", "duration", "price", "session_num", "status"] 
+                    },
+                },
+            },
+        ]
+    })
+    
+        /*
             include: [
                 Appointment,
                 {
@@ -71,7 +103,7 @@ pacientController.getPacientById = async (req, res) => {
             }
         }
     )
-
+*/
     return res.json(pacient);
 
     }catch(error){
