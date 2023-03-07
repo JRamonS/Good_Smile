@@ -53,9 +53,14 @@ pacientController.getPacientById = async (req, res) => {
 
     try{
 
-    const pacientId = req.params.id;
+        const pacienttId = req.userId
 
-    const pacient = await Pacient.findByPk(pacientId,{
+        const pacientAppointment = await Pacient.findAll(
+            {
+                where: 
+                {
+                    user_id: pacienttId
+                },
 
         include: [
             Appointment,
@@ -104,7 +109,7 @@ pacientController.getPacientById = async (req, res) => {
         }
     )
 */
-    return res.json(pacient);
+    return res.json(pacientAppointment);
 
     }catch(error){
         return res.status(500).send(error.message)
