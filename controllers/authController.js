@@ -33,7 +33,7 @@ authController.login = async (req, res) => {
             },
 
         //the token will have a duration of 2 hours
-            'secreto',
+        process.env.JWT_SECRET,
             { expiresIn: '2h'}
         );
 

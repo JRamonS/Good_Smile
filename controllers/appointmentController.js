@@ -1,4 +1,4 @@
-const { Appointment, Treatment, Dentist, Pacient } = require("../models");
+const { Appointment, Treatment, Dentist, User} = require("../models");
 
 const appointmentController = {};
 
@@ -7,10 +7,10 @@ const appointmentController = {};
 appointmentController.createAppointment = async (req, res) => {
 
     try {
-        const {pacient_id,dentist_id,treatment_id,hour,status,observations,date} = req.body;
+        const {dentist_id,treatment_id,hour,status,observations,date,} = req.body;
 
         const newAppointment = {
-            pacient_id : pacient_id,
+            user_id : req.userId,
             dentist_id: dentist_id,
             treatment_id : treatment_id,
             hour : hour,
@@ -18,10 +18,17 @@ appointmentController.createAppointment = async (req, res) => {
             observations : observations,
             date : date
         }
-
-        const appointment = await Appointment.create(newAppointment)
-
-        return res.json(appointment)
+        const appointmentCreate = await Appointment.create(
+            newAppointment
+        )
+            
+        
+        return res.json(
+            {
+                success: true,
+                message: "User registered",
+                data: appointmentCreate
+            })
 
     }catch(error){
 
@@ -33,9 +40,10 @@ appointmentController.createAppointment = async (req, res) => {
 
 appointmentController.getAppointment = async (req, res) => {
 
-let citasActivas = await Appointment.findAll({
+
+const citasActivas = await Appointment.findAll({
     
-    attributes: ['pacient_id', 'dentist_id', "treatment_id", "hour", "status"]
+    attributes: ['dentist_id', "treatment_id", "hour", "status"]
   });
   res.status(200).json({
     message: `These are all the appointment in the calendar`,
@@ -47,14 +55,14 @@ let citasActivas = await Appointment.findAll({
 
 appointmentController.getAppointmentById = async (req, res) => {
 
-    process.env.JWT_KEY
 
     try{
 
-        const appointmentId = req.params.id;
 
-        const appointment = await Appointment.findByPk(appointmentId,{
-            
+        const appointment = await Appointment.findAll({
+            where : {
+                user_id : req.userId
+            },
                 include: [
                     Treatment,
                     {
@@ -64,12 +72,6 @@ appointmentController.getAppointmentById = async (req, res) => {
                         }
                         },
                     {
-                        model: Pacient,
-                        attributes: {
-                            exclude: ["user_id", "createdAt", "updatedAt"]
-                        },
-                    },
-                    {
                         model: Dentist,
                         attributes: {
                             exclude: ["user_id","registration_number", "createdAt", "updatedAt"]
@@ -78,7 +80,7 @@ appointmentController.getAppointmentById = async (req, res) => {
                     },
                 ],
                 attributes: {
-                    exclude: ["pacient_id", "dentist_id", "treatment_id", "createdAt", "updatedAt"]
+                    exclude: [ "dentist_id", "treatment_id", "createdAt", "updatedAt"]
                 }
         })
 
@@ -93,38 +95,63 @@ appointmentController.getAppointmentById = async (req, res) => {
 
 appointmentController.putAppointmentById = async (req, res) =>{
 
-    try{
+        try {
+            const change = req.body;
+            const appointmentupdated = await Appointment.update(
+                {
+                hour: change.hour,
+                status: change.status,
+                observations: change.observations,
+                date: change.date,
+                },
+                {
+                where: {
+                    user_id: req.userId,
+                    id: change.id
+                },
+                }
+            );
 
-        const appointmentId = req.params.id
+            return res.json(
 
-        const {hour,status,observations,date} = req.body;
+                {
+                    success: true,
+                    message: "Appointment Updated",
+                    data: appointmentupdated
+                })
 
-        const updateAppointment = await Appointment.update({hour:hour,status:status,observations:observations,date:date}, {where:{id:appointmentId}})
-
-        return res.json(updateAppointment)
-
-    }catch(error){
-
-        return res.status(500).send(error.message)
+            }catch (error) {
+            console.error(error);
+            res.status(500).json({
+                error: error.message,
+            });
+        }
     }
-};
-
-//Function for appointment delete
 
 appointmentController.deleteAppointmentById = async(req, res) => {
-
-    try{
-
+    try {
         const appointmentId = req.params.id
-    
-        const deleteAppointment = await Appointment.destroy({where: { id: appointmentId}})
+        const deleteAppointment = await Appointment.destroy({
 
-        return res.json(deleteAppointment);
 
-    }catch(error){
-
+                where: { 
+                    user_id: req.userId ,
+                    id: appointmentId
+                    
+                },
+            }
+        )
+        return res.json(
+            {
+                success: true,
+                message: "Appointment Deleted",
+                data: deleteAppointment
+            })
+    } catch (error) {
         return res.status(500).send(error.message)
     }
-};
+}
+
+
 
 module.exports =  appointmentController
