@@ -4,7 +4,7 @@ const verifyToken = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
 // All available routes for the model Rol
-router.post("/rols/:id",verifyToken, isAdmin, rolController.createRol)
+router.put("/rols/:id",verifyToken, isAdmin, rolController.updateRol)
 router.get("/rols/admin", verifyToken, isAdmin, rolController.getRolById)
 
 module.exports = router
