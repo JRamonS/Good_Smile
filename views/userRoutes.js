@@ -5,8 +5,9 @@ const router = require("express").Router();
 
 // All available routes for the model User
 router.post("/users",userController.createUser)
-router.get("/users/:id", verifyToken,userController.getUserById)
-router.put("/users/:id", verifyToken,userController.getUserById)
-router.delete("/users/:id", verifyToken, isAdmin, userController.deleteUserById)
+router.get("/users/admin", isAdmin, userController.getUser)
+router.get("/users", verifyToken,userController.getUserById)
+router.put("/users", verifyToken,userController.getUserById)
+router.delete("/users", verifyToken, isAdmin, userController.deleteUserById)
 
 module.exports = router

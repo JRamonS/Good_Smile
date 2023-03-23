@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       session_num: {
         type: Sequelize.INTEGER

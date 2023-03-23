@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       amount: {
         type: Sequelize.FLOAT

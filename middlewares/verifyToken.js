@@ -16,6 +16,7 @@ const verifyToken = (req, res, next) => {
 
         req.userId = decoded.userId;
         req.roleId = decoded.roleId;
+        req.email = decoded.email;
 
         next();
         //Pick up the possible error

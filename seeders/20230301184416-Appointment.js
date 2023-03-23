@@ -20,7 +20,7 @@ module.exports = {
         updatedAt: "2023-02-22 00:00:00"
       },
       {id: 2,
-        pacient_id : 2,
+        pacient_id : 3,
         dentist_id: 2,
         treatment_id : 2,
         hour: "18:50",

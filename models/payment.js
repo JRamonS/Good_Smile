@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Payment.init({
     treatment_id : DataTypes.INTEGER,
     note: DataTypes.TEXT,
-    date: DataTypes.STRING,
+    date: DataTypes.DATE,
     amount: DataTypes.FLOAT,
     payment_method: DataTypes.STRING
   }, {

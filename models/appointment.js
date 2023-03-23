@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'dentist_id'
       });
 
-      Appointment.belongsTo(models.Pacient, {
-        foreignKey: 'pacient_id'
+      Appointment.belongsTo(models.User, {
+        foreignKey: 'user_id'
       });
 
       Appointment.belongsTo(models.Treatment, {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     hour: DataTypes.STRING,
     status: DataTypes.STRING,
     observations: DataTypes.TEXT,
-    date: DataTypes.STRING
+    date: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Appointment',

@@ -9,10 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      pacient_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Pacients",
+          model: "Users",
           key: "id"
         }
       },
@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
