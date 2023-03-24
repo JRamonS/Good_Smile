@@ -14,8 +14,9 @@ const verifyToken = (req, res, next) => {
         //Verify the token with your secret
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+
         req.userId = decoded.userId;
-        req.roleId = decoded.roleId;
+        req.rolId = decoded.rolId;
         req.email = decoded.email;
 
         next();
