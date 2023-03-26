@@ -8,13 +8,15 @@ rolController.updateRol = async (req, res) => {
 
             try {
                 const { rol_id } = req.body;
+                const userId = req.params.id
                 const updateUser = await User.update(
                 {
                     rol_id: rol_id,
+                    userId: userId,
                 },
                 {
                     where: {
-                    id: req.params.id
+                    id: userId
                     }
                 }
                 );

@@ -11,8 +11,9 @@ module.exports = {
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "root",
+    "database": "Good_Smile",
+    "port": "3306",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

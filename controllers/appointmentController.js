@@ -43,7 +43,7 @@ appointmentController.getAppointment = async (req, res) => {
 
 const citasActivas = await Appointment.findAll({
     
-    attributes: ['dentist_id', "treatment_id", "hour", "status"]
+    attributes: ["id",'dentist_id', "treatment_id", "hour", "status", "date"]
   });
   res.status(200).json({
     message: `These are all the appointment in the calendar`,
